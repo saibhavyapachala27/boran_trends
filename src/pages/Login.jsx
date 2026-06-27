@@ -1,0 +1,235 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useShop } from '../context/ShopContext';
+import { Mail, Lock, Phone, AlertCircle } from 'lucide-react';
+import logoImg from '../assets/logo.jpg';
+
+
+export default function Login() {
+  const { customer, loginCustomer, logoutCustomer } = useShop();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isRegister, setIsRegister] = useState(false);
+
+  // Initialize registered users database in localStorage if empty
+  useEffect(() => {
+    const existing = localStorage.getItem('boran_users');
+    if (!existing) {
+      const defaultUsers = [
+        { email: 'customer@gmail.com', password: 'customer123', phone: '+91 9876543210' }
+      ];
+      localStorage.setItem('boran_users', JSON.stringify(defaultUsers));
+    }
+  }, []);
+
+  // On mount, log out the current customer to ensure they can sign in as a different user
+  useEffect(() => {
+    logoutCustomer();
+  }, [logoutCustomer]);
+
+  // Redirect if already logged in as Admin
+  useEffect(() => {
+    const isAdmin = localStorage.getItem('boran_admin_auth') === 'true';
+    if (isAdmin) {
+      navigate('/admin/products');
+    }
+  }, [navigate]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError('');
+
+    // Normalize inputs to ensure robust checks
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanPassword = password.trim();
+
+    if (isRegister) {
+      const cleanPhone = phone.trim();
+      if (!cleanEmail || !cleanPhone || !cleanPassword) {
+        setError('Please fill in all fields.');
+        return;
+      }
+
+      // Check if email already registered
+      const users = JSON.parse(localStorage.getItem('boran_users') || '[]');
+      if (users.some(u => u.email === cleanEmail)) {
+        setError('An account with this email already exists. Please Sign In.');
+        return;
+      }
+
+      // Save user
+      const newUser = { email: cleanEmail, phone: cleanPhone, password: cleanPassword };
+      users.push(newUser);
+      localStorage.setItem('boran_users', JSON.stringify(users));
+
+      // Save phone number defaults for checkout autocompletion
+      const details = { name: '', phone: cleanPhone, address: '' };
+      localStorage.setItem('boran_last_checkout', JSON.stringify(details));
+
+      // Log in
+      loginCustomer(cleanEmail, cleanPhone);
+      const origin = location.state?.from?.pathname || '/';
+      navigate(origin);
+    } else {
+      if (!cleanEmail || !cleanPassword) {
+        setError('Please fill in all fields.');
+        return;
+      }
+
+      const isLocalAdmin = (cleanEmail === 'admin' || cleanEmail === 'admin@borantrends.com') && cleanPassword === 'admin123';
+      
+      if (isLocalAdmin) {
+        localStorage.setItem('boran_admin_auth', 'true');
+        const origin = location.state?.from?.pathname || '/admin/products';
+        navigate(origin);
+      } else {
+        const users = JSON.parse(localStorage.getItem('boran_users') || '[]');
+        const matched = users.find(u => u.email === cleanEmail && u.password === cleanPassword);
+        
+        if (matched) {
+          // Pre-populate checkout details phone if not yet set
+          const saved = localStorage.getItem('boran_last_checkout');
+          let details = { name: '', phone: matched.phone, address: '' };
+          if (saved) {
+            try {
+              const parsed = JSON.parse(saved);
+              details = { ...parsed, phone: parsed.phone || matched.phone };
+            } catch (err) {}
+          }
+          localStorage.setItem('boran_last_checkout', JSON.stringify(details));
+
+          loginCustomer(matched.email, matched.phone);
+          const origin = location.state?.from?.pathname || '/';
+          navigate(origin);
+        } else {
+          setError('Invalid email or password. Please try again or create a new account.');
+        }
+      }
+    }
+  };
+
+  return (
+    <div className="min-h-[85vh] bg-[#F9FAFB] flex items-center justify-center px-4 py-12">
+      <div className="w-full max-w-md bg-white border border-border/80 rounded-2xl shadow-sm p-8 space-y-6">
+        
+        {/* Brand header */}
+        <div className="text-center space-y-2">
+          <div className="h-14 w-14 mx-auto rounded-xl overflow-hidden border border-border shadow-sm">
+            <img src={logoImg} alt="Boran Trends Logo" className="h-full w-full object-cover" />
+          </div>
+          <h2 className="font-sans text-xl font-extrabold tracking-wide text-foreground">
+            {isRegister ? 'Create an Account' : 'Boran Trends Account'}
+          </h2>
+          <p className="text-xs text-muted-foreground font-light">
+            {isRegister 
+              ? 'Join Boran Trends to shop our exclusive menswear styles.' 
+              : 'Please log in with your credentials to explore our collections.'}
+          </p>
+        </div>
+
+        {error && (
+          <div className="flex items-center gap-2 text-xs text-destructive bg-destructive/10 p-3 rounded-lg border border-destructive/20 font-medium">
+            <AlertCircle className="h-4 w-4" /> {error}
+          </div>
+        )}
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          
+          <div className="space-y-1">
+            <label className="text-[11px] text-muted-foreground font-semibold block">Email Address *</label>
+            <div className="relative flex items-center">
+              <input
+                type="text"
+                required
+                placeholder="e.g. customer@gmail.com or admin"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full h-10 rounded-lg border border-border bg-[#F9FAFB] pl-10 pr-4 text-xs focus:border-primary/50 focus:bg-white focus:outline-none"
+              />
+              <Mail className="absolute left-3.5 h-4 w-4 text-muted-foreground" />
+            </div>
+          </div>
+
+          {isRegister && (
+            <div className="space-y-1">
+              <label className="text-[11px] text-muted-foreground font-semibold block">WhatsApp Phone Number *</label>
+              <div className="relative flex items-center">
+                <input
+                  type="tel"
+                  required
+                  placeholder="e.g. +91 7989163216"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  className="w-full h-10 rounded-lg border border-border bg-[#F9FAFB] pl-10 pr-4 text-xs focus:border-primary/50 focus:bg-white focus:outline-none"
+                />
+                <Phone className="absolute left-3.5 h-4 w-4 text-muted-foreground" />
+              </div>
+            </div>
+          )}
+
+          <div className="space-y-1">
+            <label className="text-[11px] text-muted-foreground font-semibold block">Password *</label>
+            <div className="relative flex items-center">
+              <input
+                type="password"
+                required
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full h-10 rounded-lg border border-border bg-[#F9FAFB] pl-10 pr-4 text-xs focus:border-primary/50 focus:bg-white focus:outline-none"
+              />
+              <Lock className="absolute left-3.5 h-4 w-4 text-muted-foreground" />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full h-10 rounded-lg bg-primary text-primary-foreground hover:bg-primary/95 text-xs font-semibold shadow-md transition-colors"
+          >
+            {isRegister ? 'Register & Sign In' : 'Sign In'}
+          </button>
+
+        </form>
+
+        {/* Toggle between Register & Login */}
+        <div className="text-center text-xs text-muted-foreground">
+          {isRegister ? (
+            <span>
+              Already have an account?{' '}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsRegister(false);
+                  setError('');
+                }}
+                className="text-primary font-bold hover:underline focus:outline-none"
+              >
+                Sign In
+              </button>
+            </span>
+          ) : (
+            <span>
+              New to Boran Trends?{' '}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsRegister(true);
+                  setError('');
+                }}
+                className="text-primary font-bold hover:underline focus:outline-none"
+              >
+                Create Account
+              </button>
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

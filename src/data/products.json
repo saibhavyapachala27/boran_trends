@@ -1,0 +1,1278 @@
+[
+  {
+    "id": "awake_graphic_tee",
+    "name": "Awake Design Studio Shirt",
+    "category": "Shirts",
+    "price": 650,
+    "original_price": 999,
+    "description": "Premium heavy-wash cotton shirt featuring the double-star 'awake design studio' back print. Comfortable drop-shoulder silhouette, premium garment dyed texture.",
+    "images": [
+      "/awake_beige_mannequin_v2.png",
+      "/awake_rust_mannequin_v2.png",
+      "/awake_dark_brown_mannequin_v2.png",
+      "/awake_olive_green_mannequin_v2.png",
+      "/awake_maroon_mannequin_v2.png",
+      "/awake_dark_green_mannequin_v2.png",
+      "/awake_cream_mannequin_v2.png",
+      "/awake_black_mannequin_v2.png",
+      "/awake_sage_green_mannequin_v2.png"
+    ],
+    "colors": [
+      "Beige",
+      "Rust Orange",
+      "Dark Brown",
+      "Olive Green",
+      "Maroon",
+      "Dark Green",
+      "Cream",
+      "Black",
+      "Sage Green"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 141,
+    "stock_jangaon": 137,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-24T11:00:00.000000",
+    "updated_date": "2026-06-24T11:00:00.000000",
+    "created_by_id": "admin_seeded",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "variants": [
+      {
+        "color": "Beige",
+        "image": "/awake_beige_mannequin_v2.png",
+        "stock_bhongir": 15,
+        "stock_jangaon": 18,
+        "stock_mothkur": 5
+      },
+      {
+        "color": "Rust Orange",
+        "image": "/awake_rust_orange_mannequin_v2.png",
+        "stock_bhongir": 18,
+        "stock_jangaon": 20,
+        "stock_mothkur": 5
+      },
+      {
+        "color": "Dark Brown",
+        "image": "/awake_dark_brown_mannequin_v2.png",
+        "stock_bhongir": 20,
+        "stock_jangaon": 12,
+        "stock_mothkur": 5
+      },
+      {
+        "color": "Olive Green",
+        "image": "/awake_olive_green_mannequin_v2.png",
+        "stock_bhongir": 12,
+        "stock_jangaon": 14,
+        "stock_mothkur": 5
+      },
+      {
+        "color": "Maroon",
+        "image": "/awake_maroon_mannequin_v2.png",
+        "stock_bhongir": 15,
+        "stock_jangaon": 10,
+        "stock_mothkur": 5
+      },
+      {
+        "color": "Dark Green",
+        "image": "/awake_dark_green_mannequin_v2.png",
+        "stock_bhongir": 10,
+        "stock_jangaon": 12,
+        "stock_mothkur": 5
+      },
+      {
+        "color": "Cream",
+        "image": "/awake_cream_mannequin_v2.png",
+        "stock_bhongir": 15,
+        "stock_jangaon": 15,
+        "stock_mothkur": 5
+      },
+      {
+        "color": "Black",
+        "image": "/awake_black_mannequin_v2.png",
+        "stock_bhongir": 20,
+        "stock_jangaon": 15,
+        "stock_mothkur": 5
+      },
+      {
+        "color": "Sage Green",
+        "image": "/awake_sage_green_mannequin_v2.png",
+        "stock_bhongir": 18,
+        "stock_jangaon": 18,
+        "stock_mothkur": 5
+      }
+    ],
+    "stock_mothkur": 10
+  },
+  {
+    "id": "cargo_utility_1",
+    "name": "Utility Multi-Pocket Cargo Pants",
+    "category": "Cargos",
+    "price": 1499,
+    "original_price": 2199,
+    "description": "Premium heavy-cotton canvas cargos featuring multiple utility pockets, tactical strap details, and an adjustable ankle drawcord. Designed for a clean, modern aesthetic.",
+    "images": [
+      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Black",
+      "Olive",
+      "Khaki"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 15,
+    "stock_jangaon": 12,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-24T14:19:19.513Z",
+    "updated_date": "2026-06-24T14:19:19.513Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "ethnic_silk_1",
+    "name": "Royal Banarasi Silk Kurta Pyjama",
+    "category": "Ethnic Wear",
+    "price": 3299,
+    "original_price": 4999,
+    "description": "Elegant Banarasi silk blend kurta with intricate embroidery on the collar and button placket, paired with comfortable cotton pyjamas. Perfect for weddings and festive occasions.",
+    "images": [
+      "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80"
+    ],
+    "colors": [
+      "Maroon",
+      "Navy Blue",
+      "Gold"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 18,
+    "stock_jangaon": 15,
+    "is_trending": false,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-24T14:19:19.513Z",
+    "updated_date": "2026-06-24T14:19:19.513Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "baggy_jeans_light_wash",
+    "name": "Classic Light Wash Baggy Jeans",
+    "category": "Jeans",
+    "price": 1399,
+    "original_price": 1999,
+    "description": "Relaxed fit baggy jeans crafted from 100% premium cotton denim. Features a clean light wash finish, classic five-pocket styling, and a roomy silhouette for ultimate streetwear comfort.",
+    "images": [
+      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Light Blue"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 12,
+    "stock_jangaon": 15,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.851Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "baggy_jeans_acid_grey",
+    "name": "Vintage Acid Wash Grey Baggy Jeans",
+    "category": "Jeans",
+    "price": 1499,
+    "original_price": 2199,
+    "description": "Heavyweight 13oz cotton denim with a custom acid-washed grey finish. Cut in an ultra-relaxed baggy fit with subtle distressed details around the pocket borders.",
+    "images": [
+      "https://images.unsplash.com/photo-1602293589930-45aad59ba3ab?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Acid Grey"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 10,
+    "stock_jangaon": 14,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "baggy_jeans_pitch_black",
+    "name": "Pitch Black Loose Fit Jeans",
+    "category": "Jeans",
+    "price": 1299,
+    "original_price": 1899,
+    "description": "Deep pitch-black raw denim in a relaxed, straight baggy fit. Made with durable cotton twill and finished with tone-on-tone stitching for a sleek, modern streetwear profile.",
+    "images": [
+      "https://images.unsplash.com/photo-1582562124811-c09040d0a901?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Black"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 18,
+    "stock_jangaon": 12,
+    "is_trending": false,
+    "is_new_arrival": true,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "baggy_jeans_deep_indigo",
+    "name": "Deep Indigo Wide-Leg Jeans",
+    "category": "Jeans",
+    "price": 1499,
+    "original_price": 2099,
+    "description": "Rich dark indigo jeans in a wide-leg baggy cut. Features minimal washing to preserve the classic raw denim look, contrasting copper stitching, and branded hardware.",
+    "images": [
+      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Indigo"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 15,
+    "stock_jangaon": 10,
+    "is_trending": true,
+    "is_new_arrival": false,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "baggy_jeans_sandy_khaki",
+    "name": "Sandy Khaki Baggy Denim Pants",
+    "category": "Jeans",
+    "price": 1399,
+    "original_price": 1999,
+    "description": "Relaxed baggy jeans crafted from dyed cotton denim in a warm sandy-khaki tone. Features double-stitched seams and a loose, comfortable fit through the leg.",
+    "images": [
+      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Khaki"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 8,
+    "stock_jangaon": 11,
+    "is_trending": false,
+    "is_new_arrival": true,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "baggy_jeans_sage_green",
+    "name": "Sage Green Utility Baggy Jeans",
+    "category": "Jeans",
+    "price": 1599,
+    "original_price": 2299,
+    "description": "Utility-inspired baggy jeans in a washed sage green tone. Equipped with a hammer loop, side utility pocket, and reinforced carpenter patch details on the knees.",
+    "images": [
+      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Sage Green"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 14,
+    "stock_jangaon": 9,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "baggy_jeans_distressed_blue",
+    "name": "Distressed Vintage Blue Baggy Jeans",
+    "category": "Jeans",
+    "price": 1599,
+    "original_price": 2399,
+    "description": "Pre-washed mid-blue denim with soft hand-scraping, minor distressing, and frayed hem details. Cut in a roomy wide-leg silhouette that stacks perfectly over sneakers.",
+    "images": [
+      "https://images.unsplash.com/photo-1604176354204-9268737828e4?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Vintage Blue"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 16,
+    "stock_jangaon": 18,
+    "is_trending": true,
+    "is_new_arrival": false,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "baggy_jeans_espresso_brown",
+    "name": "Rich Espresso Brown Denim Pants",
+    "category": "Jeans",
+    "price": 1499,
+    "original_price": 2199,
+    "description": "Earth-toned wide baggy jeans in an elegant espresso brown. Heavyweight cotton fabric ensures structural drape while maintaining softness through multiple washings.",
+    "images": [
+      "https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Brown"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 11,
+    "stock_jangaon": 13,
+    "is_trending": false,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "trending_shirt_cuban_stripe",
+    "name": "Cuban Collar Striped Cotton Shirt",
+    "category": "Shirts",
+    "price": 1199,
+    "original_price": 1799,
+    "description": "Vintage-inspired camp collar casual shirt in breathable cotton. Features a relaxed boxy fit, vertical retro stripes, and a light drape perfect for layering.",
+    "images": [
+      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Navy",
+      "Beige"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 20,
+    "stock_jangaon": 15,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "trending_shirt_flannel_plaid",
+    "name": "Heavyweight Plaid Flannel Overshirt",
+    "category": "Shirts",
+    "price": 1499,
+    "original_price": 2299,
+    "description": "Heavyweight cotton plaid flannel perfect as a transition overshirt. Features twin button-flap chest pockets, adjustable button cuffs, and a soft brushed finish.",
+    "images": [
+      "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Forest Green",
+      "Red Plaid"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 15,
+    "stock_jangaon": 18,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "trending_shirt_corduroy",
+    "name": "Premium Corduroy Casual Button-Down",
+    "category": "Shirts",
+    "price": 1399,
+    "original_price": 2099,
+    "description": "Soft, textured fine-wale corduroy shirt in a modern oversized cut. Features a single chest pocket, button-down collar, and custom horn buttons.",
+    "images": [
+      "https://images.unsplash.com/photo-1617137968427-85924c800a22?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Camel",
+      "Olive Green"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 12,
+    "stock_jangaon": 14,
+    "is_trending": false,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "trending_shirt_waffle_knit",
+    "name": "Textured Waffle-Knit Resort Shirt",
+    "category": "Shirts",
+    "price": 1299,
+    "original_price": 1899,
+    "description": "Premium waffle-knit texture with a relaxed resort collar. Extremely breathable fabric that retains its shape, giving a clean, modern aesthetic.",
+    "images": [
+      "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Cream",
+      "Grey"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 18,
+    "stock_jangaon": 16,
+    "is_trending": true,
+    "is_new_arrival": false,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "trending_shirt_utility_cargo",
+    "name": "Vintage Washed Cotton Utility Shirt",
+    "category": "Shirts",
+    "price": 1599,
+    "original_price": 2399,
+    "description": "Military-inspired utility shirt with dual cargo pockets on the chest, shoulder epaulets, and structured cotton-twill weave. Vintage mineral-washed for a worn-in aesthetic.",
+    "images": [
+      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Military Olive",
+      "Charcoal"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 10,
+    "stock_jangaon": 12,
+    "is_trending": false,
+    "is_new_arrival": true,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "trending_shirt_linen_band",
+    "name": "Breezy Summer Linen Band Collar Shirt",
+    "category": "Shirts",
+    "price": 1399,
+    "original_price": 1999,
+    "description": "Minimalist band collar (mandarin collar) shirt made from pure lightweight French linen. Naturally cooling and perfect for warm casual days.",
+    "images": [
+      "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Off-White",
+      "Sky Blue"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 14,
+    "stock_jangaon": 10,
+    "is_trending": true,
+    "is_new_arrival": false,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "trending_shirt_floral_camp",
+    "name": "Floral Print Vacation Camp Shirt",
+    "category": "Shirts",
+    "price": 1199,
+    "original_price": 1699,
+    "description": "Soft-draping camp collar shirt with a retro tropical floral print. Features a clean straight hem and a boxy, airy fit ideal for summer outings.",
+    "images": [
+      "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Black Tropical",
+      "Cream Floral"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 22,
+    "stock_jangaon": 15,
+    "is_trending": false,
+    "is_new_arrival": true,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "trending_shirt_crochet_knit",
+    "name": "Retro Knit Crochet Polo Shirt",
+    "category": "Shirts",
+    "price": 1699,
+    "original_price": 2599,
+    "description": "Trending open-weave crochet knit polo shirt. Features a retro ribbed collar, short sleeves, and a premium knit structure that offers a sophisticated high-street look.",
+    "images": [
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Ivory",
+      "Navy"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 12,
+    "stock_jangaon": 8,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T06:09:48.853Z",
+    "updated_date": "2026-06-25T06:09:48.853Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "cargo_tactical_black",
+    "name": "Tactical Multi-Pocket Cargo Pants",
+    "category": "Cargos",
+    "price": 1599,
+    "original_price": 2299,
+    "description": "High-performance tactical cargo pants with water-resistant cotton nylon ripstop fabric. Equipped with 6 secure pockets and reinforced knees for a rugged streetwear look.",
+    "images": [
+      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Black"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 15,
+    "stock_jangaon": 12,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T06:32:41.141Z",
+    "updated_date": "2026-06-25T06:32:41.145Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "cargo_carpenter_olive",
+    "name": "Washed Cotton Carpenter Cargos",
+    "category": "Cargos",
+    "price": 1499,
+    "original_price": 2199,
+    "description": "Utility carpenter cargo pants in durable pre-washed cotton canvas. Cut in a relaxed loose fit with contrast triple-needle stitching and tool loops.",
+    "images": [
+      "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Olive Green"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 10,
+    "stock_jangaon": 8,
+    "is_trending": false,
+    "is_new_arrival": true,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T06:32:41.145Z",
+    "updated_date": "2026-06-25T06:32:41.145Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "cargo_jogger_grey",
+    "name": "Urban Cargo Jogger Pants",
+    "category": "Cargos",
+    "price": 1399,
+    "original_price": 1999,
+    "description": "Casual streetwear cargo joggers featuring elasticated cuffs, drawstring waistband, and signature cargo flap pockets on the thighs.",
+    "images": [
+      "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Slate Grey"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 12,
+    "stock_jangaon": 14,
+    "is_trending": true,
+    "is_new_arrival": false,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T06:32:41.145Z",
+    "updated_date": "2026-06-25T06:32:41.145Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "ethnic_mandarin_white",
+    "name": "Premium Mandarin Cotton Kurta",
+    "category": "Ethnic Wear",
+    "price": 1299,
+    "original_price": 1899,
+    "description": "Classic pure white cotton kurta with a clean mandarin collar and wooden buttons. Extremely lightweight, comfortable, and perfect for simple ethnic wear.",
+    "images": [
+      "https://images.unsplash.com/photo-1607345366928-199ea26cfe3e?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "White"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 14,
+    "stock_jangaon": 16,
+    "is_trending": false,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T06:32:41.145Z",
+    "updated_date": "2026-06-25T06:32:41.145Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "ethnic_nehru_navy",
+    "name": "Hand-Embroidered Nehru Jacket Set",
+    "category": "Ethnic Wear",
+    "price": 2799,
+    "original_price": 3999,
+    "description": "A sophisticated three-piece set featuring a hand-embroidered navy blue Nehru jacket, a matching silk blend kurta, and pyjama trousers.",
+    "images": [
+      "https://images.unsplash.com/photo-1593030141340-b68832a86f7b?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Navy Blue"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 8,
+    "stock_jangaon": 6,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T06:32:41.145Z",
+    "updated_date": "2026-06-25T06:32:41.145Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "ethnic_jodhpur_silk",
+    "name": "Classic Jodhpur Silk Kurta",
+    "category": "Ethnic Wear",
+    "price": 1999,
+    "original_price": 2999,
+    "description": "Elegant silk-blend ethnic kurta in a rich golden-yellow colorway. Crafted with premium Jodhpur weaving and matching piping details.",
+    "images": [
+      "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&auto=format&fit=crop&q=80"
+    ],
+    "colors": [
+      "Gold"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 12,
+    "stock_jangaon": 10,
+    "is_trending": false,
+    "is_new_arrival": false,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T06:32:41.145Z",
+    "updated_date": "2026-06-25T06:32:41.145Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "user_shirt_oxford_blue",
+    "name": "Premium Oxford Blue Button-Down Shirt",
+    "category": "Shirts",
+    "price": 1299,
+    "original_price": 1899,
+    "description": "Classic long-sleeve button-down shirt in premium blue oxford cotton. Features a button-down collar, chest pocket, and a clean structured drape.",
+    "images": [
+      "/user_shirt_1.png"
+    ],
+    "colors": [
+      "Oxford Blue"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 15,
+    "stock_jangaon": 12,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T07:04:13.806Z",
+    "updated_date": "2026-06-25T07:04:13.808Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "user_shirt_charcoal_short",
+    "name": "Charcoal Grey Short-Sleeve Shirt",
+    "category": "Shirts",
+    "price": 1099,
+    "original_price": 1599,
+    "description": "Lightweight and breathable short-sleeve casual shirt in dark charcoal grey. Tailored fit with a modern spread collar.",
+    "images": [
+      "/user_shirt_2.png"
+    ],
+    "colors": [
+      "Charcoal Grey"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 10,
+    "stock_jangaon": 8,
+    "is_trending": false,
+    "is_new_arrival": true,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T07:04:13.808Z",
+    "updated_date": "2026-06-25T07:04:13.808Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "user_shirt_plaid_flannel",
+    "name": "Slate Grey Plaid Flannel Shirt",
+    "category": "Shirts",
+    "price": 1399,
+    "original_price": 1999,
+    "description": "Comfortable heavyweight plaid flannel shirt in dark grey and black check pattern. Features twin button-flap chest pockets and roll-up sleeves.",
+    "images": [
+      "/user_shirt_3.png"
+    ],
+    "colors": [
+      "Grey Check"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 12,
+    "stock_jangaon": 14,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T07:04:13.808Z",
+    "updated_date": "2026-06-25T07:04:13.808Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "user_shirt_sage_green",
+    "name": "Sage Green Cotton Casual Shirt",
+    "category": "Shirts",
+    "price": 1299,
+    "original_price": 1899,
+    "description": "Soft, structured long-sleeve casual shirt in a beautiful solid sage green. Features a chest pocket and adjustable cuffs.",
+    "images": [
+      "/user_shirt_4.png"
+    ],
+    "colors": [
+      "Sage Green"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 14,
+    "stock_jangaon": 10,
+    "is_trending": false,
+    "is_new_arrival": false,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T07:04:13.808Z",
+    "updated_date": "2026-06-25T07:04:13.808Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "user_shirt_olive_check",
+    "name": "Olive Utility Shirt with Check Accents",
+    "category": "Shirts",
+    "price": 1499,
+    "original_price": 2199,
+    "description": "Durable olive green casual shirt featuring contrast plaid accents on the inner collar and inner cuffs. Equipped with a utility chest pocket.",
+    "images": [
+      "/user_shirt_5.png"
+    ],
+    "colors": [
+      "Olive"
+    ],
+    "sizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "stock_bhongir": 12,
+    "stock_jangaon": 8,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T07:04:13.808Z",
+    "updated_date": "2026-06-25T07:04:13.808Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "user_tshirt_1",
+    "name": "Classic Solid Beige Tee",
+    "category": "T-Shirts",
+    "price": 799,
+    "original_price": 1199,
+    "description": "Premium heavyweight boxy tee in solid beige color. Made from 100% premium combed cotton with a comfortable drop-shoulder silhouette.",
+    "images": [
+      "/user_tshirt_1.png"
+    ],
+    "colors": [
+      "Beige"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock_bhongir": 15,
+    "stock_jangaon": 12,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T07:16:05.881Z",
+    "updated_date": "2026-06-25T07:16:05.883Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "user_tshirt_2",
+    "name": "Vintage Acid Wash Brown Tee",
+    "category": "T-Shirts",
+    "price": 899,
+    "original_price": 1399,
+    "description": "Heavyweight cotton tee with a custom vintage acid wash brown finish. Relaxed fit, drop shoulders, and durable stitched collar.",
+    "images": [
+      "/user_tshirt_2.png"
+    ],
+    "colors": [
+      "Acid Wash Brown"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock_bhongir": 18,
+    "stock_jangaon": 15,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T07:16:05.883Z",
+    "updated_date": "2026-06-25T07:16:05.883Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "user_tshirt_3",
+    "name": "LEASTREET Astronaut Graphic Tee",
+    "category": "T-Shirts",
+    "price": 899,
+    "original_price": 1499,
+    "description": "Oversized graphic tee featuring a bold retro astronaut and rabbit 'LEASTREET' streetwear print. Made from premium washed cotton.",
+    "images": [
+      "/user_tshirt_3.png"
+    ],
+    "colors": [
+      "Washed Black"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock_bhongir": 20,
+    "stock_jangaon": 16,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T07:16:05.883Z",
+    "updated_date": "2026-06-25T07:16:05.883Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "user_tshirt_4",
+    "name": "Everyday Cream Pocket Tee",
+    "category": "T-Shirts",
+    "price": 799,
+    "original_price": 1099,
+    "description": "Everyday basic pocket crewneck tee in a premium cream tone. Heavy weight cotton fabric with clean chest pocket details.",
+    "images": [
+      "/user_tshirt_4.png"
+    ],
+    "colors": [
+      "Cream"
+    ],
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "stock_bhongir": 14,
+    "stock_jangaon": 11,
+    "is_trending": false,
+    "is_new_arrival": true,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T07:16:05.883Z",
+    "updated_date": "2026-06-25T07:16:05.883Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "user_trouser_1",
+    "name": "Signature Pleated Black Trousers",
+    "category": "Trousers",
+    "price": 1499,
+    "original_price": 2199,
+    "description": "Premium black pleated trousers with a relaxed straight-leg drape. Features classic pleats, slant pockets, and a button-through back pocket.",
+    "images": [
+      "/user_trouser_1.png"
+    ],
+    "colors": [
+      "Black"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 15,
+    "stock_jangaon": 12,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T08:01:28.488Z",
+    "updated_date": "2026-06-25T08:01:28.490Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "user_trouser_2",
+    "name": "Tailored Tan Formal Trousers",
+    "category": "Trousers",
+    "price": 1699,
+    "original_price": 2499,
+    "description": "Elegant tan formal trousers tailored from a wrinkle-resistant cotton blend. Features a clean flat front and precise crease line.",
+    "images": [
+      "/user_trouser_2.png"
+    ],
+    "colors": [
+      "Tan"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 18,
+    "stock_jangaon": 14,
+    "is_trending": true,
+    "is_new_arrival": true,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T08:01:28.490Z",
+    "updated_date": "2026-06-25T08:01:28.490Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "user_trouser_3",
+    "name": "Classic Khaki Chino Pants",
+    "category": "Trousers",
+    "price": 1299,
+    "original_price": 1899,
+    "description": "Versatile everyday khaki chinos in a straight fit. Soft-washed for comfort and durability.",
+    "images": [
+      "/user_trouser_3.png"
+    ],
+    "colors": [
+      "Khaki"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 20,
+    "stock_jangaon": 15,
+    "is_trending": false,
+    "is_new_arrival": true,
+    "is_featured": true,
+    "status": "active",
+    "created_date": "2026-06-25T08:01:28.490Z",
+    "updated_date": "2026-06-25T08:01:28.490Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  },
+  {
+    "id": "user_trouser_4",
+    "name": "Relaxed Fit Charcoal Grey Trousers",
+    "category": "Trousers",
+    "price": 1599,
+    "original_price": 2299,
+    "description": "Comfortable charcoal grey relaxed trousers with an elasticated waistband and drawstring closure. Ideal for smart-casual wear.",
+    "images": [
+      "/user_trouser_4.png"
+    ],
+    "colors": [
+      "Charcoal Grey"
+    ],
+    "sizes": [
+      "30",
+      "32",
+      "34",
+      "36"
+    ],
+    "stock_bhongir": 12,
+    "stock_jangaon": 10,
+    "is_trending": false,
+    "is_new_arrival": true,
+    "is_featured": false,
+    "status": "active",
+    "created_date": "2026-06-25T08:01:28.490Z",
+    "updated_date": "2026-06-25T08:01:28.490Z",
+    "created_by": "admin@borantrends.com",
+    "is_sample": false,
+    "stock_mothkur": 10
+  }
+]
