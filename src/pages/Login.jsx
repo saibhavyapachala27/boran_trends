@@ -35,10 +35,7 @@ export default function Login() {
     }
   }, []);
 
-  // On mount, log out the current customer to ensure they can sign in as a different user
-  useEffect(() => {
-    logoutCustomer();
-  }, [logoutCustomer]);
+
 
   // Redirect if already logged in
   useEffect(() => {
