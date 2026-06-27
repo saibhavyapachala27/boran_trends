@@ -106,20 +106,20 @@ export const ShopProvider = ({ children }) => {
   const [customer, setCustomer] = useState(() => {
     try {
       const stored = localStorage.getItem('boran_customer');
-      return stored ? JSON.parse(stored) : { email: '', phone: '', loggedIn: false };
+      return stored ? JSON.parse(stored) : { email: '', phone: '', role: 'User', loggedIn: false };
     } catch (e) {
-      return { email: '', phone: '', loggedIn: false };
+      return { email: '', phone: '', role: 'User', loggedIn: false };
     }
   });
 
-  const loginCustomer = useCallback((email, phone = '') => {
-    const data = { email, phone, loggedIn: true };
+  const loginCustomer = useCallback((email, phone = '', role = 'User') => {
+    const data = { email, phone, role, loggedIn: true };
     setCustomer(data);
     localStorage.setItem('boran_customer', JSON.stringify(data));
   }, []);
 
   const logoutCustomer = useCallback(() => {
-    const data = { email: '', phone: '', loggedIn: false };
+    const data = { email: '', phone: '', role: 'User', loggedIn: false };
     setCustomer(data);
     localStorage.setItem('boran_customer', JSON.stringify(data));
   }, []);

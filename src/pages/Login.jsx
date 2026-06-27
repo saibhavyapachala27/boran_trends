@@ -21,9 +21,17 @@ export default function Login() {
     const existing = localStorage.getItem('boran_users');
     if (!existing) {
       const defaultUsers = [
-        { email: 'customer@gmail.com', password: 'customer123', phone: '+91 9876543210' }
+        { email: 'customer@gmail.com', password: 'customer123', phone: '+91 9876543210', role: 'User' },
+        { email: 'sanjaypallapu921@gmail.com', password: 'sanjay@2006', phone: '+91 9999999999', role: 'Admin' }
       ];
       localStorage.setItem('boran_users', JSON.stringify(defaultUsers));
+    } else {
+      // Ensure predefined admin exists in case the user database was modified previously
+      const users = JSON.parse(existing);
+      if (!users.some(u => u.email === 'sanjaypallapu921@gmail.com')) {
+        users.push({ email: 'sanjaypallapu921@gmail.com', password: 'sanjay@2006', phone: '+91 9999999999', role: 'Admin' });
+        localStorage.setItem('boran_users', JSON.stringify(users));
+      }
     }
   }, []);
 
@@ -32,13 +40,16 @@ export default function Login() {
     logoutCustomer();
   }, [logoutCustomer]);
 
-  // Redirect if already logged in as Admin
+  // Redirect if already logged in
   useEffect(() => {
-    const isAdmin = localStorage.getItem('boran_admin_auth') === 'true';
-    if (isAdmin) {
-      navigate('/admin/products');
+    if (customer.loggedIn) {
+      if (customer.role === 'Admin') {
+        navigate('/admin/products');
+      } else {
+        navigate('/');
+      }
     }
-  }, [navigate]);
+  }, [customer, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,6 +66,12 @@ export default function Login() {
         return;
       }
 
+      // Block registration on reserved admin emails
+      if (cleanEmail === 'sanjaypallapu921@gmail.com' || cleanEmail === 'admin@borantrends.com' || cleanEmail === 'admin') {
+        setError('This email is reserved for administrative access. Registration is not permitted.');
+        return;
+      }
+
       // Check if email already registered
       const users = JSON.parse(localStorage.getItem('boran_users') || '[]');
       if (users.some(u => u.email === cleanEmail)) {
@@ -62,8 +79,8 @@ export default function Login() {
         return;
       }
 
-      // Save user
-      const newUser = { email: cleanEmail, phone: cleanPhone, password: cleanPassword };
+      // Save user with 'User' role
+      const newUser = { email: cleanEmail, phone: cleanPhone, password: cleanPassword, role: 'User' };
       users.push(newUser);
       localStorage.setItem('boran_users', JSON.stringify(users));
 
@@ -72,7 +89,7 @@ export default function Login() {
       localStorage.setItem('boran_last_checkout', JSON.stringify(details));
 
       // Log in
-      loginCustomer(cleanEmail, cleanPhone);
+      loginCustomer(cleanEmail, cleanPhone, 'User');
       const origin = location.state?.from?.pathname || '/';
       navigate(origin);
     } else {
@@ -81,34 +98,58 @@ export default function Login() {
         return;
       }
 
-      const isLocalAdmin = (cleanEmail === 'admin' || cleanEmail === 'admin@borantrends.com') && cleanPassword === 'admin123';
-      
-      if (isLocalAdmin) {
-        localStorage.setItem('boran_admin_auth', 'true');
-        const origin = location.state?.from?.pathname || '/admin/products';
-        navigate(origin);
-      } else {
-        const users = JSON.parse(localStorage.getItem('boran_users') || '[]');
-        const matched = users.find(u => u.email === cleanEmail && u.password === cleanPassword);
-        
-        if (matched) {
-          // Pre-populate checkout details phone if not yet set
-          const saved = localStorage.getItem('boran_last_checkout');
-          let details = { name: '', phone: matched.phone, address: '' };
-          if (saved) {
-            try {
-              const parsed = JSON.parse(saved);
-              details = { ...parsed, phone: parsed.phone || matched.phone };
-            } catch (err) {}
-          }
-          localStorage.setItem('boran_last_checkout', JSON.stringify(details));
+      // 1. First check if it matches predefined admin credentials
+      const isAdminPredefined = 
+        (cleanEmail === 'sanjaypallapu921@gmail.com' && cleanPassword === 'sanjay@2006') ||
+        (cleanEmail === 'admin@borantrends.com' && cleanPassword === 'admin123') ||
+        (cleanEmail === 'admin' && cleanPassword === 'admin123');
 
-          loginCustomer(matched.email, matched.phone);
+      if (isAdminPredefined) {
+        const adminEmail = (cleanEmail === 'admin' || cleanEmail === 'admin@borantrends.com') 
+          ? 'admin@borantrends.com' 
+          : 'sanjaypallapu921@gmail.com';
+
+        localStorage.setItem('boran_admin_auth', 'true');
+        loginCustomer(adminEmail, '+91 9999999999', 'Admin');
+        navigate('/admin/products');
+        return;
+      }
+
+      // 2. Otherwise search standard database
+      const users = JSON.parse(localStorage.getItem('boran_users') || '[]');
+      const matched = users.find(u => u.email === cleanEmail && u.password === cleanPassword);
+      
+      if (matched) {
+        const accountRole = matched.role || 'User';
+
+        // Pre-populate checkout details phone if not yet set
+        const saved = localStorage.getItem('boran_last_checkout');
+        let details = { name: '', phone: matched.phone, address: '' };
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            details = { ...parsed, phone: parsed.phone || matched.phone };
+          } catch (err) {}
+        }
+        localStorage.setItem('boran_last_checkout', JSON.stringify(details));
+
+        // Save legacy flag for compatibility
+        if (accountRole === 'Admin') {
+          localStorage.setItem('boran_admin_auth', 'true');
+        } else {
+          localStorage.removeItem('boran_admin_auth');
+        }
+
+        loginCustomer(matched.email, matched.phone, accountRole);
+        
+        if (accountRole === 'Admin') {
+          navigate('/admin/products');
+        } else {
           const origin = location.state?.from?.pathname || '/';
           navigate(origin);
-        } else {
-          setError('Invalid email or password. Please try again or create a new account.');
         }
+      } else {
+        setError('Invalid email or password. Please try again or create a new account.');
       }
     }
   };

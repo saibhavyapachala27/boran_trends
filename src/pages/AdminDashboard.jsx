@@ -34,13 +34,14 @@ export default function AdminDashboard() {
 
   // Authentication check
   useEffect(() => {
-    if (localStorage.getItem('boran_admin_auth') !== 'true') {
+    if (localStorage.getItem('boran_admin_auth') !== 'true' || !customer.loggedIn || customer.role !== 'Admin') {
       navigate('/login', { state: { from: location } });
     }
-  }, [navigate, location]);
+  }, [customer, navigate, location]);
 
   const handleLogout = () => {
     localStorage.removeItem('boran_admin_auth');
+    logoutCustomer();
     navigate('/login');
   };
 

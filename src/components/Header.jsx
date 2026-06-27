@@ -40,10 +40,11 @@ export default function Header() {
     navigate(`/shop?category=${encodeURIComponent(category)}`);
   };
 
-  const isAdminAuthenticated = localStorage.getItem('boran_admin_auth') === 'true';
+  const isAdminAuthenticated = customer.loggedIn && customer.role === 'Admin';
 
   const handleAdminLogout = () => {
     localStorage.removeItem('boran_admin_auth');
+    logoutCustomer();
     setIsProfileOpen(false);
     navigate('/login');
   };
