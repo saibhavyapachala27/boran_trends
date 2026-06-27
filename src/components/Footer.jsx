@@ -122,8 +122,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <Link to="/login" className="hover:text-primary transition-colors flex items-center gap-1">
-                  Staff Login Portal
+                <Link to="/admin" className="hover:text-primary transition-colors flex items-center gap-1">
+                  Staff Admin Portal
                 </Link>
               </li>
             </ul>
