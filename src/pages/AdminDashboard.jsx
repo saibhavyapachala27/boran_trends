@@ -27,7 +27,9 @@ export default function AdminDashboard() {
     orders = [],
     updateOrderStatus,
     notifications = [],
-    clearNotifications
+    clearNotifications,
+    customer,
+    logoutCustomer
   } = useShop();
 
   const pendingOrdersCount = orders.filter((o) => o.status === 'Order Placed').length;
