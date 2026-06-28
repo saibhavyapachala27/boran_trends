@@ -33,12 +33,17 @@ function MainAppContent() {
   const location = useLocation();
 
   const isAuthenticated = customer.loggedIn;
-  const isAdmin = isAuthenticated && customer.role === 'Admin';
+  const isLoginPage = location.pathname === '/login';
 
-  // 1. Admin route protection
-  if (location.pathname.startsWith('/admin')) {
-    if (!isAdmin) {
-      return <Navigate to="/login" replace state={{ from: location }} />;
+  // 1. Force redirect to login page if user is not authenticated at all
+  if (!isAuthenticated && !isLoginPage) {
+    return <Navigate to="/login" replace state={{ from: location }} />;
+  }
+
+  // 2. If logged in as Admin, lock them into the Admin Dashboard portal
+  if (isAuthenticated && customer.role === 'Admin') {
+    if (!location.pathname.startsWith('/admin') && location.pathname !== '/login') {
+      return <Navigate to="/admin/products" replace />;
     }
     return (
       <div className="flex flex-col min-h-screen bg-background text-foreground">
@@ -52,24 +57,35 @@ function MainAppContent() {
     );
   }
 
-  // 2. Customer profile & wishlist route protection
-  if ((location.pathname === '/profile' || location.pathname === '/wishlist') && !isAuthenticated) {
-    return <Navigate to="/login" replace state={{ from: location }} />;
+  // 3. If logged in as Customer, show standard customer storefront
+  if (isAuthenticated && customer.role === 'User') {
+    // Block customers from admin urls and redirect to home
+    if (location.pathname.startsWith('/admin')) {
+      return <Navigate to="/" replace />;
+    }
+    return (
+      <AppLayout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<CustomerProfile />} />
+          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </AppLayout>
+    );
   }
 
-  // 3. Public storefront routes
+  // Fallback Default
   return (
     <AppLayout>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/product/:id" element={<ProductDetails />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<CustomerProfile />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </AppLayout>
   );
