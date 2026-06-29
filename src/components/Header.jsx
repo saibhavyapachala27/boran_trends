@@ -53,18 +53,18 @@ export default function Header() {
     <header className="w-full bg-white border-b border-border/80 sticky top-0 z-50 shadow-sm">
       
       {/* Top Bar / Brand header */}
-      <div className="max-w-7xl mx-auto px-4 h-18 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 h-16 sm:h-18 flex items-center justify-between gap-2 sm:gap-4">
         
         {/* Logo and Name */}
-        <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
-          <div className="h-11 w-11 rounded-lg overflow-hidden border border-border shadow-sm">
+        <Link to="/" className="flex items-center gap-1.5 sm:gap-2.5 shrink-0 group">
+          <div className="h-9 w-9 sm:h-11 sm:w-11 rounded-lg overflow-hidden border border-border shadow-sm">
             <img src={logoImg} alt="Boran Trends Logo" className="h-full w-full object-cover" />
           </div>
           <div className="flex flex-col">
-            <span className="font-sans text-xl font-extrabold tracking-wide text-foreground group-hover:text-primary transition-colors">
+            <span className="font-sans text-base sm:text-xl font-extrabold tracking-wide text-foreground group-hover:text-primary transition-colors leading-tight">
               Boran Trends
             </span>
-            <span className="text-[10px] tracking-[0.1em] text-primary uppercase font-bold -mt-0.5">
+            <span className="text-[8px] sm:text-[10px] tracking-[0.1em] text-primary uppercase font-bold -mt-0.5">
               Online Fashion
             </span>
           </div>
@@ -85,17 +85,17 @@ export default function Header() {
         </form>
 
         {/* Right Actions */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-2.5 sm:gap-4 md:gap-5">
           
           {/* Branch Dropdown */}
           <div className="relative">
             <button
               onClick={() => setIsBranchOpen(!isBranchOpen)}
-              className="flex items-center gap-1.5 rounded-lg border border-border/70 hover:border-primary/40 bg-secondary/20 px-3 py-1.5 text-xs font-semibold text-foreground focus:outline-none transition-colors"
+              className="flex items-center gap-1 rounded-lg border border-border/70 hover:border-primary/40 bg-secondary/20 px-2 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs font-semibold text-foreground focus:outline-none transition-colors"
             >
-              <MapPin className="h-4 w-4 text-primary" />
+              <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
               <span>{selectedBranch}</span>
-              <ChevronDown className="h-3.5 w-3.5 text-muted-foreground" />
+              <ChevronDown className="hidden sm:block h-3.5 w-3.5 text-muted-foreground" />
             </button>
 
             {isBranchOpen && (
@@ -121,13 +121,13 @@ export default function Header() {
           {/* Wishlist Icon */}
           <Link
             to="/wishlist"
-            className="relative flex flex-col items-center text-muted-foreground hover:text-primary transition-colors"
+            className="relative flex flex-col items-center p-1 text-muted-foreground hover:text-primary transition-colors"
             aria-label="Wishlist"
           >
             <Heart className="h-5 w-5 text-foreground" />
-            <span className="text-[10px] mt-0.5 font-medium">Wishlist</span>
+            <span className="hidden sm:block text-[10px] mt-0.5 font-medium">Wishlist</span>
             {wishlist.length > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground shadow">
+              <span className="absolute top-0 right-0 sm:-top-1.5 sm:-right-1.5 flex h-4 w-4 sm:h-4.5 sm:w-4.5 items-center justify-center rounded-full bg-primary text-[8px] sm:text-[9px] font-bold text-primary-foreground shadow">
                 {wishlist.length}
               </span>
             )}
@@ -136,13 +136,13 @@ export default function Header() {
           {/* Cart Icon */}
           <Link
             to="/cart"
-            className="relative flex flex-col items-center text-muted-foreground hover:text-primary transition-colors"
+            className="relative flex flex-col items-center p-1 text-muted-foreground hover:text-primary transition-colors"
             aria-label="Cart"
           >
             <ShoppingBag className="h-5 w-5 text-foreground" />
-            <span className="text-[10px] mt-0.5 font-medium">Cart</span>
+            <span className="hidden sm:block text-[10px] mt-0.5 font-medium">Cart</span>
             {itemCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground shadow">
+              <span className="absolute top-0 right-0 sm:-top-1.5 sm:-right-1.5 flex h-4 w-4 sm:h-4.5 sm:w-4.5 items-center justify-center rounded-full bg-primary text-[8px] sm:text-[9px] font-bold text-primary-foreground shadow">
                 {itemCount}
               </span>
             )}
@@ -155,7 +155,7 @@ export default function Header() {
               className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors focus:outline-none p-1"
             >
               <User className="h-5 w-5 text-foreground" />
-              <span className="text-[10px] mt-0.5 font-medium">Profile</span>
+              <span className="hidden sm:block text-[10px] mt-0.5 font-medium">Profile</span>
             </button>
 
             {isProfileOpen && (
