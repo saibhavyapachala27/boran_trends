@@ -1279,6 +1279,7 @@ Please keep your phone available. Thank you for shopping with Boran Trends!`;
             })}
           </div>
         )}
+      </div>
     );
   }
 }
