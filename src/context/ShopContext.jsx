@@ -303,11 +303,11 @@ export const ShopProvider = ({ children }) => {
 
   const fetchOrdersFromCloud = useCallback(async () => {
     try {
-      const response = await fetch('https://extendsclass.com/api/json-storage/bin/fabffca');
+      const response = await fetch('https://api.restful-api.dev/objects/ff8081819d82fab6019f17168930777f');
       if (response.ok) {
-        const cloudOrders = await response.json();
-        if (Array.isArray(cloudOrders)) {
-          return cloudOrders;
+        const result = await response.json();
+        if (result && result.data && Array.isArray(result.data.orders)) {
+          return result.data.orders;
         }
       }
     } catch (e) {
@@ -318,13 +318,19 @@ export const ShopProvider = ({ children }) => {
 
   const syncOrdersToCloud = async (updatedOrders) => {
     try {
-      const url = 'https://extendsclass.com/api/json-storage/bin/fabffca';
+      const url = 'https://api.restful-api.dev/objects/ff8081819d82fab6019f17168930777f';
       await fetch(url, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(updatedOrders)
+        body: JSON.stringify({
+          name: 'BoranTrendsOrders',
+          data: {
+            orders: updatedOrders
+          }
+        }),
+        keepalive: true
       });
     } catch (e) {
       console.error('Failed to sync orders to cloud KV:', e);
