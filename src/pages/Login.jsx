@@ -201,7 +201,7 @@ export default function Login() {
                 <input
                   type="tel"
                   required
-                  placeholder="e.g. +91 7989163216"
+                  placeholder="e.g. +91 7995395296"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   className="w-full h-10 rounded-lg border border-border bg-[#F9FAFB] pl-10 pr-4 text-xs focus:border-primary/50 focus:bg-white focus:outline-none"

@@ -114,8 +114,8 @@ export default function ProductDetails() {
     const saved = getLastCheckoutDetails();
     setCheckoutName(saved.name || '');
     setCheckoutLocation(saved.address || '');
-    setCheckoutPhone(saved.phone || customer.phone || '');
-    setCheckoutEmail(saved.email || customer.email || '');
+    setCheckoutPhone(saved.phone || '');
+    setCheckoutEmail(saved.email || '');
     setShowBuyModal(true);
   };
 

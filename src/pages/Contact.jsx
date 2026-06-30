@@ -101,7 +101,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <a
-                      href={`https://api.whatsapp.com/send/?phone=917989163216&text=Hello%20Boran%20Trends,%20I'm%20inquiring%20about%20the%20${encodeURIComponent(store.name)}`}
+                      href={`https://api.whatsapp.com/send/?phone=917995395296&text=Hello%20Boran%20Trends,%20I'm%20inquiring%20about%20the%20${encodeURIComponent(store.name)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full h-9 inline-flex items-center justify-center gap-1.5 rounded-lg border border-border hover:border-primary/40 hover:bg-secondary/40 text-xs font-semibold transition-all"
@@ -140,7 +140,7 @@ export default function Contact() {
               
               <div className="space-y-3">
                 <a
-                  href="https://api.whatsapp.com/send/?phone=917989163216"
+                  href="https://api.whatsapp.com/send/?phone=917995395296"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 p-3 rounded-lg border border-border/60 hover:border-primary/30 bg-secondary/10 transition-colors"
@@ -150,7 +150,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="text-xs font-semibold">Order WhatsApp Support</h4>
-                    <p className="text-[10px] text-muted-foreground font-light mt-0.5">+91 79891 63216</p>
+                    <p className="text-[10px] text-muted-foreground font-light mt-0.5">+91 79953 95296</p>
                   </div>
                 </a>
 

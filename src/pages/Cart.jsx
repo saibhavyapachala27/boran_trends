@@ -24,8 +24,8 @@ export default function Cart() {
   // Customer checkout form state
   const [formData, setFormData] = useState({
     name: savedDetails.name || '',
-    phone: savedDetails.phone || customer.phone || '',
-    email: savedDetails.email || customer.email || '',
+    phone: savedDetails.phone || '',
+    email: savedDetails.email || '',
     address: savedDetails.address || '',
     location: '',
   });
@@ -36,8 +36,8 @@ export default function Cart() {
     setFormData((prev) => ({
       ...prev,
       name: prev.name || freshDetails.name,
-      phone: prev.phone || freshDetails.phone || customer.phone,
-      email: prev.email || freshDetails.email || customer.email,
+      phone: prev.phone || freshDetails.phone,
+      email: prev.email || freshDetails.email,
       address: prev.address || freshDetails.address,
     }));
   }, [customer]);

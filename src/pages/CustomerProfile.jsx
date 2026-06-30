@@ -109,7 +109,7 @@ export default function CustomerProfile() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleInputChange}
-                  placeholder="e.g. +91 7989163216"
+                  placeholder="e.g. +91 7995395296"
                   className="w-full h-10 rounded-lg border border-border bg-[#F9FAFB] pl-10 pr-4 text-xs focus:border-primary/50 focus:bg-white focus:outline-none"
                 />
                 <Phone className="absolute left-3.5 h-4 w-4 text-muted-foreground" />
