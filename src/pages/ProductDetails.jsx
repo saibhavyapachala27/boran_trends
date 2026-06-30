@@ -71,6 +71,8 @@ export default function ProductDetails() {
   // Modal checkout states
   const [showBuyModal, setShowBuyModal] = useState(false);
   const [checkoutName, setCheckoutName] = useState('');
+  const [checkoutPhone, setCheckoutPhone] = useState('');
+  const [checkoutEmail, setCheckoutEmail] = useState('');
   const [checkoutLocation, setCheckoutLocation] = useState('');
 
   // Filter similar products (same category, excluding self)
@@ -112,26 +114,28 @@ export default function ProductDetails() {
     const saved = getLastCheckoutDetails();
     setCheckoutName(saved.name || '');
     setCheckoutLocation(saved.address || '');
+    setCheckoutPhone(saved.phone || customer.phone || '');
+    setCheckoutEmail(saved.email || customer.email || '');
     setShowBuyModal(true);
   };
 
   const handleConfirmWhatsAppOrder = (e) => {
     e.preventDefault();
-    if (!checkoutName.trim() || !checkoutLocation.trim()) {
-      alert('Please fill in your name and delivery address/location.');
+    if (!checkoutName.trim() || !checkoutPhone.trim() || !checkoutEmail.trim() || !checkoutLocation.trim()) {
+      alert('Please fill in all customer details (Name, Phone, Email, and Address).');
       return;
     }
 
     // 1. Save inputs to storage first so generateProductWhatsAppURL reads the updated details
     const saved = getLastCheckoutDetails();
-    const customerPhone = customer.phone || saved.phone || 'Not Provided';
-    const customerEmail = customer.email || saved.email || '';
     
     localStorage.setItem(
       'boran_last_checkout',
       JSON.stringify({
         ...saved,
         name: checkoutName.trim(),
+        phone: checkoutPhone.trim(),
+        email: checkoutEmail.trim(),
         address: checkoutLocation.trim()
       })
     );
@@ -153,8 +157,8 @@ export default function ProductDetails() {
 
     const orderId = placeMockOrder(
       checkoutName.trim(),
-      customerPhone,
-      customerEmail,
+      checkoutPhone.trim(),
+      checkoutEmail.trim(),
       checkoutLocation.trim(),
       '',
       [directItem]
@@ -506,6 +510,30 @@ export default function ProductDetails() {
                   placeholder="e.g. Satish Kumar"
                   value={checkoutName}
                   onChange={(e) => setCheckoutName(e.target.value)}
+                  className="w-full h-10 rounded-lg border border-border bg-[#F9FAFB] px-3 text-xs focus:border-primary/50 focus:bg-white focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs text-muted-foreground font-semibold block mb-1">WhatsApp Mobile *</label>
+                <input
+                  type="tel"
+                  required
+                  placeholder="e.g. +91 9876543210"
+                  value={checkoutPhone}
+                  onChange={(e) => setCheckoutPhone(e.target.value)}
+                  className="w-full h-10 rounded-lg border border-border bg-[#F9FAFB] px-3 text-xs focus:border-primary/50 focus:bg-white focus:outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs text-muted-foreground font-semibold block mb-1">Email Address *</label>
+                <input
+                  type="email"
+                  required
+                  placeholder="e.g. customer@gmail.com"
+                  value={checkoutEmail}
+                  onChange={(e) => setCheckoutEmail(e.target.value)}
                   className="w-full h-10 rounded-lg border border-border bg-[#F9FAFB] px-3 text-xs focus:border-primary/50 focus:bg-white focus:outline-none"
                 />
               </div>
