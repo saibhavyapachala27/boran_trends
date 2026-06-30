@@ -35,8 +35,8 @@ function MainAppContent() {
   const isAuthenticated = customer.loggedIn;
   const isLoginPage = location.pathname === '/login';
 
-  // 1. Force redirect to login page if user is not authenticated at all (except for home page '/')
-  if (!isAuthenticated && !isLoginPage && location.pathname !== '/') {
+  // 1. Force redirect to login page if user is not authenticated at all
+  if (!isAuthenticated && !isLoginPage) {
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
@@ -80,13 +80,12 @@ function MainAppContent() {
     );
   }
 
-  // Fallback Default for Unauthenticated Guests (can only view Home and Login)
+  // Fallback Default
   return (
     <AppLayout>
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="*" element={<Navigate to="/login" replace state={{ from: location }} />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </AppLayout>
   );
