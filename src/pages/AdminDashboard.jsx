@@ -871,7 +871,7 @@ Please keep your phone available. Thank you for shopping with Boran Trends!`;
       const cleanNumber = number.length === 10 ? `91${number}` : number;
 
       // 3. Open WhatsApp link directly
-      const url = `https://wa.me/${cleanNumber}?text=${encodeURIComponent(waText)}`;
+      const url = `https://api.whatsapp.com/send/?phone=${cleanNumber}&text=${encodeURIComponent(waText)}`;
       const newWindow = window.open(url, '_blank');
       if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
         window.location.href = url;

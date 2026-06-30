@@ -335,17 +335,44 @@ export const ShopProvider = ({ children }) => {
     localStorage.setItem('boran_orders', JSON.stringify(orders));
   }, [orders]);
 
-  useEffect(() => {
-    const loadCloudOrders = async () => {
-      const cloudOrders = await fetchOrdersFromCloud();
-      if (cloudOrders) {
-        setOrders(cloudOrders);
+  const mergeOrders = useCallback((localOrders, cloudOrders) => {
+    const mergedMap = new Map();
+    localOrders.forEach(o => {
+      mergedMap.set(o.id, o);
+    });
+    cloudOrders.forEach(co => {
+      if (mergedMap.has(co.id)) {
+        const lo = mergedMap.get(co.id);
+        const isCloudStatusMoreAdvanced = co.status !== 'Order Placed' && lo.status === 'Order Placed';
+        if (isCloudStatusMoreAdvanced || new Date(co.date) > new Date(lo.date)) {
+          mergedMap.set(co.id, co);
+        }
+      } else {
+        mergedMap.set(co.id, co);
       }
+    });
+    return Array.from(mergedMap.values());
+  }, []);
+
+  useEffect(() => {
+    const syncWithCloud = async () => {
+      const cloudOrders = await fetchOrdersFromCloud();
+      if (!cloudOrders) return;
+      
+      setOrders((currentLocalOrders) => {
+        const merged = mergeOrders(currentLocalOrders, cloudOrders);
+        const cloudStr = JSON.stringify(cloudOrders);
+        const mergedStr = JSON.stringify(merged);
+        if (cloudStr !== mergedStr) {
+          syncOrdersToCloud(merged);
+        }
+        return merged;
+      });
     };
-    loadCloudOrders();
-    const interval = setInterval(loadCloudOrders, 15000);
+    syncWithCloud();
+    const interval = setInterval(syncWithCloud, 10000);
     return () => clearInterval(interval);
-  }, [fetchOrdersFromCloud]);
+  }, [fetchOrdersFromCloud, mergeOrders]);
 
   const placeMockOrder = (customerName, phone, email, address, locationText = '', itemsToOrder = null) => {
     const orderId = `BT-${Math.floor(1000 + Math.random() * 9000)}`;
@@ -511,7 +538,7 @@ Thank you.`;
 
     saveLastCheckoutDetails(customerName, phone, emailAddress, address);
 
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    return `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
   };
 
   const generateProductWhatsAppURL = (product, size, color, quantity = 1, orderId = 'BT-MOCK') => {
@@ -549,7 +576,7 @@ Please confirm availability.
 
 Thank you.`;
 
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    return `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
   };
 
   return (
