@@ -237,7 +237,7 @@ export default function Login() {
         </form>
 
         {/* Toggle between Register & Login */}
-        <div className="text-center text-xs text-muted-foreground">
+        <div className="text-center text-xs text-muted-foreground border-b border-border/40 pb-4">
           {isRegister ? (
             <span>
               Already have an account?{' '}
@@ -247,7 +247,7 @@ export default function Login() {
                   setIsRegister(false);
                   setError('');
                 }}
-                className="text-primary font-bold hover:underline focus:outline-none"
+                className="text-primary font-bold hover:underline focus:outline-none cursor-pointer"
               >
                 Sign In
               </button>
@@ -261,13 +261,32 @@ export default function Login() {
                   setIsRegister(true);
                   setError('');
                 }}
-                className="text-primary font-bold hover:underline focus:outline-none"
+                className="text-primary font-bold hover:underline focus:outline-none cursor-pointer"
               >
                 Create Account
               </button>
             </span>
           )}
         </div>
+
+        {/* Predefined Test Credentials */}
+        {!isRegister && (
+          <div className="bg-secondary/20 border border-border/60 rounded-xl p-3.5 space-y-2">
+            <h4 className="text-[10px] font-bold text-foreground uppercase tracking-wider">Default Test Credentials:</h4>
+            <div className="grid grid-cols-2 gap-3 text-[10px] text-muted-foreground">
+              <div className="space-y-0.5">
+                <span className="font-semibold text-foreground block">Customer Account:</span>
+                <div>Email: <code className="bg-secondary/60 px-1 py-0.5 rounded text-foreground font-mono">customer@gmail.com</code></div>
+                <div>Pass: <code className="bg-secondary/60 px-1 py-0.5 rounded text-foreground font-mono">customer123</code></div>
+              </div>
+              <div className="space-y-0.5">
+                <span className="font-semibold text-foreground block">Staff Admin Account:</span>
+                <div>Email: <code className="bg-secondary/60 px-1 py-0.5 rounded text-foreground font-mono">admin@borantrends.com</code></div>
+                <div>Pass: <code className="bg-secondary/60 px-1 py-0.5 rounded text-foreground font-mono">admin123</code></div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
