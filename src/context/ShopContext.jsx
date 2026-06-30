@@ -3,7 +3,7 @@ import initialProducts from '../data/products.json';
 
 const ShopContext = createContext();
 
-const WHATSAPP_NUMBER = '917995395296';
+const WHATSAPP_NUMBER = '917989163216';
 
 export const ShopProvider = ({ children }) => {
   // 1. Products Catalog State
