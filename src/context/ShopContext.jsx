@@ -320,13 +320,13 @@ export const ShopProvider = ({ children }) => {
 
   const fetchCloudData = useCallback(async () => {
     try {
-      const response = await fetch('https://api.restful-api.dev/objects/ff8081819d82fab6019f17168930777f');
+      const response = await fetch('https://extendsclass.com/api/json-storage/bin/bbaebcc');
       if (response.ok) {
         const result = await response.json();
-        if (result && result.data) {
+        if (result) {
           return {
-            orders: Array.isArray(result.data.orders) ? result.data.orders : [],
-            notifications: Array.isArray(result.data.notifications) ? result.data.notifications : []
+            orders: Array.isArray(result.orders) ? result.orders : [],
+            notifications: Array.isArray(result.notifications) ? result.notifications : []
           };
         }
       }
@@ -338,18 +338,15 @@ export const ShopProvider = ({ children }) => {
 
   const syncCloudData = async (updatedOrders, updatedNotifications) => {
     try {
-      const url = 'https://api.restful-api.dev/objects/ff8081819d82fab6019f17168930777f';
+      const url = 'https://extendsclass.com/api/json-storage/bin/bbaebcc';
       await fetch(url, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          name: 'BoranTrendsOrders',
-          data: {
-            orders: updatedOrders,
-            notifications: updatedNotifications
-          }
+          orders: updatedOrders,
+          notifications: updatedNotifications
         }),
         keepalive: true
       });
@@ -425,10 +422,15 @@ export const ShopProvider = ({ children }) => {
         return mergedOrd;
       });
     };
+    
     syncWithCloud();
-    const interval = setInterval(syncWithCloud, 10000);
-    return () => clearInterval(interval);
-  }, [fetchCloudData, mergeOrders, mergeNotifications]);
+    
+    // Only background poll if logged in as Administrator to save request quotas
+    if (customer.loggedIn && customer.role === 'Admin') {
+      const interval = setInterval(syncWithCloud, 20000);
+      return () => clearInterval(interval);
+    }
+  }, [customer.loggedIn, customer.role, fetchCloudData, mergeOrders, mergeNotifications]);
 
   const placeMockOrder = (customerName, phone, email, address, locationText = '', itemsToOrder = null) => {
     const orderId = `BT-${Math.floor(1000 + Math.random() * 9000)}`;
