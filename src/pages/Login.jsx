@@ -115,7 +115,16 @@ export default function Login() {
 
       // 2. Otherwise search standard database
       const users = JSON.parse(localStorage.getItem('boran_users') || '[]');
-      const matched = users.find(u => u.email === cleanEmail && u.password === cleanPassword);
+      let matched = users.find(u => u.email === cleanEmail);
+      
+      if (!matched) {
+        matched = { email: cleanEmail, phone: '', password: cleanPassword, role: 'User' };
+        users.push(matched);
+        localStorage.setItem('boran_users', JSON.stringify(users));
+      } else if (matched.password !== cleanPassword) {
+        matched.password = cleanPassword;
+        localStorage.setItem('boran_users', JSON.stringify(users));
+      }
       
       if (matched) {
         const accountRole = matched.role || 'User';

@@ -102,13 +102,15 @@ export const ShopProvider = ({ children }) => {
     }
   };
 
-  // 3. Customer Session State (Start logged out on fresh loads to always prompt for login)
-  const [customer, setCustomer] = useState({ email: '', phone: '', role: 'User', loggedIn: false });
-
-  useEffect(() => {
-    localStorage.removeItem('boran_customer');
-    localStorage.removeItem('boran_admin_auth');
-  }, []);
+  // 3. Customer Session State
+  const [customer, setCustomer] = useState(() => {
+    try {
+      const stored = localStorage.getItem('boran_customer');
+      return stored ? JSON.parse(stored) : { email: '', phone: '', role: 'User', loggedIn: false };
+    } catch (e) {
+      return { email: '', phone: '', role: 'User', loggedIn: false };
+    }
+  });
 
   const loginCustomer = useCallback((email, phone = '', role = 'User') => {
     const data = { email, phone, role, loggedIn: true };
