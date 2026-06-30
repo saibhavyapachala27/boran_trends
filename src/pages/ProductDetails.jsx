@@ -111,11 +111,10 @@ export default function ProductDetails() {
       alert('Please select a size first.');
       return;
     }
-    const saved = getLastCheckoutDetails();
-    setCheckoutName(saved.name || '');
-    setCheckoutLocation(saved.address || '');
-    setCheckoutPhone(saved.phone || '');
-    setCheckoutEmail(saved.email || '');
+    setCheckoutName('');
+    setCheckoutLocation('');
+    setCheckoutPhone('');
+    setCheckoutEmail('');
     setShowBuyModal(true);
   };
 
@@ -493,7 +492,7 @@ export default function ProductDetails() {
               </button>
             </div>
 
-            <form onSubmit={handleConfirmWhatsAppOrder} className="space-y-4">
+            <form onSubmit={handleConfirmWhatsAppOrder} className="space-y-4" autoComplete="off">
               <p className="text-xs text-muted-foreground font-light mb-4">
                 Please confirm your name and delivery address/location details so we can add them to your WhatsApp checkout message.
               </p>

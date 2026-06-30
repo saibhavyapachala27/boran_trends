@@ -189,7 +189,7 @@ export default function Cart() {
             </div>
 
             {/* Delivery/Customer Form */}
-            <form onSubmit={handleCheckout} className="space-y-4">
+            <form onSubmit={handleCheckout} className="space-y-4" autoComplete="off">
               <h2 className="text-xs uppercase tracking-[0.2em] font-bold text-muted-foreground pb-2 border-b border-border/40">
                 Delivery Details
               </h2>
