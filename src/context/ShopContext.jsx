@@ -639,17 +639,10 @@ Please confirm availability.
 
 Thank you.`;
 
-    saveLastCheckoutDetails(customerName, phone, emailAddress, address);
-
     return `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(message)}`;
   };
 
-  const generateProductWhatsAppURL = (product, size, color, quantity = 1, orderId = 'BT-MOCK') => {
-    const saved = getLastCheckoutDetails();
-    const customerName = saved.name || 'Not Provided';
-    const customerPhone = customer.phone || saved.phone || 'Not Provided';
-    const customerEmail = customer.email || saved.email || '';
-    const customerLocation = saved.address || '';
+  const generateProductWhatsAppURL = (product, size, color, quantity = 1, orderId = 'BT-MOCK', customerName = 'Not Provided', customerPhone = 'Not Provided', customerEmail = '', customerLocation = '') => {
 
     const activeVariant = product.variants ? product.variants.find((v) => v.color === color) : null;
     const imageUrl = activeVariant ? activeVariant.image : ((product.images && product.images[0]) || '');

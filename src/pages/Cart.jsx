@@ -18,29 +18,14 @@ export default function Cart() {
 
   const navigate = useNavigate();
 
-  // Load defaults from previous purchases
-  const savedDetails = getLastCheckoutDetails();
-
   // Customer checkout form state
   const [formData, setFormData] = useState({
-    name: savedDetails.name || '',
-    phone: savedDetails.phone || '',
-    email: savedDetails.email || '',
-    address: savedDetails.address || '',
+    name: '',
+    phone: '',
+    email: '',
+    address: '',
     location: '',
   });
-
-  // Sync state if cached details load late
-  useEffect(() => {
-    const freshDetails = getLastCheckoutDetails();
-    setFormData((prev) => ({
-      ...prev,
-      name: prev.name || freshDetails.name,
-      phone: prev.phone || freshDetails.phone,
-      email: prev.email || freshDetails.email,
-      address: prev.address || freshDetails.address,
-    }));
-  }, [customer]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

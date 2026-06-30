@@ -126,21 +126,7 @@ export default function ProductDetails() {
       return;
     }
 
-    // 1. Save inputs to storage first so generateProductWhatsAppURL reads the updated details
-    const saved = getLastCheckoutDetails();
-    
-    localStorage.setItem(
-      'boran_last_checkout',
-      JSON.stringify({
-        ...saved,
-        name: checkoutName.trim(),
-        phone: checkoutPhone.trim(),
-        email: checkoutEmail.trim(),
-        address: checkoutLocation.trim()
-      })
-    );
-
-    // 2. Construct direct checkout item and place order in database
+    // 1. Construct direct checkout item and place order in database
     const activeVariant = product.variants ? product.variants.find((v) => v.color === selectedColor) : null;
     const image = activeVariant ? activeVariant.image : ((product.images && product.images[0]) || '');
     const productName = activeVariant ? `${product.name} - ${selectedColor}` : product.name;
@@ -164,14 +150,24 @@ export default function ProductDetails() {
       [directItem]
     );
 
-    // 3. Generate and open URL
-    const url = generateProductWhatsAppURL(product, selectedSize, selectedColor, quantity, orderId);
+    // 2. Generate and open URL
+    const url = generateProductWhatsAppURL(
+      product,
+      selectedSize,
+      selectedColor,
+      quantity,
+      orderId,
+      checkoutName.trim(),
+      checkoutPhone.trim(),
+      checkoutEmail.trim(),
+      checkoutLocation.trim()
+    );
     const newWindow = window.open(url, '_blank');
     if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
       window.location.href = url;
     }
 
-    // 4. Close modal
+    // 3. Close modal
     setShowBuyModal(false);
     
     // Alert user
