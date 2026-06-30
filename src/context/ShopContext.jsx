@@ -276,19 +276,36 @@ export const ShopProvider = ({ children }) => {
     localStorage.setItem('boran_notifications', JSON.stringify(notifications));
   }, [notifications]);
 
-  const addNotification = (text, type = 'info') => {
+  const addNotification = (text, type = 'info', metadata = {}) => {
     const newNotif = {
       id: `${Date.now()}-${Math.random()}`,
       type,
       text,
       date: new Date().toLocaleDateString(),
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      read: false,
+      ...metadata
     };
-    setNotifications((prev) => [newNotif, ...prev]);
+    setNotifications((prev) => {
+      const updated = [newNotif, ...prev];
+      syncCloudData(orders, updated);
+      return updated;
+    });
   };
 
   const clearNotifications = () => {
-    setNotifications([]);
+    setNotifications((prev) => {
+      syncCloudData(orders, []);
+      return [];
+    });
+  };
+
+  const markNotificationAsRead = (notifId) => {
+    setNotifications((prev) => {
+      const updated = prev.map((n) => (n.id === notifId ? { ...n, read: true } : n));
+      syncCloudData(orders, updated);
+      return updated;
+    });
   };
 
   // 6. Orders Tracking Database (Mock & Cloud Synced)
@@ -301,22 +318,25 @@ export const ShopProvider = ({ children }) => {
     }
   });
 
-  const fetchOrdersFromCloud = useCallback(async () => {
+  const fetchCloudData = useCallback(async () => {
     try {
       const response = await fetch('https://api.restful-api.dev/objects/ff8081819d82fab6019f17168930777f');
       if (response.ok) {
         const result = await response.json();
-        if (result && result.data && Array.isArray(result.data.orders)) {
-          return result.data.orders;
+        if (result && result.data) {
+          return {
+            orders: Array.isArray(result.data.orders) ? result.data.orders : [],
+            notifications: Array.isArray(result.data.notifications) ? result.data.notifications : []
+          };
         }
       }
     } catch (e) {
-      console.error('Failed to fetch orders from cloud KV:', e);
+      console.error('Failed to fetch data from cloud KV:', e);
     }
     return null;
   }, []);
 
-  const syncOrdersToCloud = async (updatedOrders) => {
+  const syncCloudData = async (updatedOrders, updatedNotifications) => {
     try {
       const url = 'https://api.restful-api.dev/objects/ff8081819d82fab6019f17168930777f';
       await fetch(url, {
@@ -327,13 +347,14 @@ export const ShopProvider = ({ children }) => {
         body: JSON.stringify({
           name: 'BoranTrendsOrders',
           data: {
-            orders: updatedOrders
+            orders: updatedOrders,
+            notifications: updatedNotifications
           }
         }),
         keepalive: true
       });
     } catch (e) {
-      console.error('Failed to sync orders to cloud KV:', e);
+      console.error('Failed to sync data to cloud KV:', e);
     }
   };
 
@@ -360,25 +381,54 @@ export const ShopProvider = ({ children }) => {
     return Array.from(mergedMap.values());
   }, []);
 
+  const mergeNotifications = useCallback((localNotifs, cloudNotifs) => {
+    const mergedMap = new Map();
+    localNotifs.forEach(n => {
+      mergedMap.set(n.id, n);
+    });
+    cloudNotifs.forEach(cn => {
+      if (mergedMap.has(cn.id)) {
+        const ln = mergedMap.get(cn.id);
+        if (cn.read || ln.read) {
+          mergedMap.set(cn.id, { ...ln, ...cn, read: true });
+        } else {
+          mergedMap.set(cn.id, { ...ln, ...cn });
+        }
+      } else {
+        mergedMap.set(cn.id, cn);
+      }
+    });
+    return Array.from(mergedMap.values()).sort((a, b) => b.id.localeCompare(a.id));
+  }, []);
+
   useEffect(() => {
     const syncWithCloud = async () => {
-      const cloudOrders = await fetchOrdersFromCloud();
-      if (!cloudOrders) return;
+      const cloudData = await fetchCloudData();
+      if (!cloudData) return;
+      
+      const { orders: cloudOrders, notifications: cloudNotifs } = cloudData;
       
       setOrders((currentLocalOrders) => {
-        const merged = mergeOrders(currentLocalOrders, cloudOrders);
-        const cloudStr = JSON.stringify(cloudOrders);
-        const mergedStr = JSON.stringify(merged);
-        if (cloudStr !== mergedStr) {
-          syncOrdersToCloud(merged);
-        }
-        return merged;
+        const mergedOrd = mergeOrders(currentLocalOrders, cloudOrders);
+        
+        setNotifications((currentLocalNotifs) => {
+          const mergedNotif = mergeNotifications(currentLocalNotifs, cloudNotifs);
+          
+          const ordChanged = JSON.stringify(cloudOrders) !== JSON.stringify(mergedOrd);
+          const notifChanged = JSON.stringify(cloudNotifs) !== JSON.stringify(mergedNotif);
+          if (ordChanged || notifChanged) {
+            syncCloudData(mergedOrd, mergedNotif);
+          }
+          return mergedNotif;
+        });
+        
+        return mergedOrd;
       });
     };
     syncWithCloud();
     const interval = setInterval(syncWithCloud, 10000);
     return () => clearInterval(interval);
-  }, [fetchOrdersFromCloud, mergeOrders]);
+  }, [fetchCloudData, mergeOrders, mergeNotifications]);
 
   const placeMockOrder = (customerName, phone, email, address, locationText = '', itemsToOrder = null) => {
     const orderId = `BT-${Math.floor(1000 + Math.random() * 9000)}`;
@@ -394,10 +444,10 @@ export const ShopProvider = ({ children }) => {
       branch: selectedBranch,
       customerName,
       phone,
-      email,
+      email: email || 'Not Provided',
       address,
       locationText,
-      date: new Date().toISOString(),
+      date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       status: 'Order Placed',
       timeline: [
         { label: 'Order Placed', time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), date: new Date().toLocaleDateString(), completed: true },
@@ -406,17 +456,38 @@ export const ShopProvider = ({ children }) => {
         { label: 'Dispatched from Store', time: 'Pending', date: '', completed: false },
         { label: 'Out for Delivery', time: 'Pending', date: '', completed: false },
         { label: 'Delivered', time: 'Pending', date: '', completed: false },
-      ]
+      ],
+      paymentMethod: 'WhatsApp Checkout / Cash on Delivery'
     };
 
-    setOrders((prev) => {
-      const updated = [freshOrder, ...prev];
-      syncOrdersToCloud(updated);
-      return updated;
+    setOrders((prevOrders) => {
+      const updatedOrders = [freshOrder, ...prevOrders];
+      
+      const newNotif = {
+        id: `${Date.now()}-${Math.random()}`,
+        type: 'order_placed',
+        text: `New order ${orderId} placed by ${customerName}`,
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        read: false,
+        orderId,
+        customerName,
+        customerEmail: email || 'Not Provided',
+        customerPhone: phone,
+        orderTotal,
+        paymentMethod: freshOrder.paymentMethod,
+        orderDate: freshOrder.date
+      };
+
+      setNotifications((prevNotifs) => {
+        const updatedNotifs = [newNotif, ...prevNotifs];
+        syncCloudData(updatedOrders, updatedNotifs);
+        return updatedNotifs;
+      });
+
+      return updatedOrders;
     });
 
-    addNotification(`New order ${orderId} placed by ${customerName} (${phone}) - total ₹${orderTotal.toLocaleString('en-IN')}`, 'order_placed');
-    
     if (!itemsToOrder) {
       clearCart();
     }
@@ -425,8 +496,8 @@ export const ShopProvider = ({ children }) => {
   };
 
   const updateOrderStatus = (orderId, newStatus, timelineLabelToComplete = '') => {
-    setOrders((prev) => {
-      const updated = prev.map((order) => {
+    setOrders((prevOrders) => {
+      const updatedOrders = prevOrders.map((order) => {
         if (order.id !== orderId) return order;
 
         let updatedTimeline = order.timeline || [];
@@ -449,11 +520,37 @@ export const ShopProvider = ({ children }) => {
           timeline: updatedTimeline,
         };
       });
-      syncOrdersToCloud(updated);
-      return updated;
-    });
 
-    addNotification(`Order ${orderId} status updated to: ${newStatus}`, 'status_updated');
+      setNotifications((prevNotifs) => {
+        const updatedNotifs = prevNotifs.map((n) => {
+          if (n.orderId === orderId) {
+            return {
+              ...n,
+              text: `Order ${orderId} status updated to: ${newStatus}`,
+              type: newStatus === 'Rejected' || newStatus === 'Cancelled' ? 'order_cancelled' : 'status_updated',
+              orderStatus: newStatus
+            };
+          }
+          return n;
+        });
+
+        const newNotif = {
+          id: `${Date.now()}-${Math.random()}`,
+          type: newStatus === 'Rejected' || newStatus === 'Cancelled' ? 'order_cancelled' : 'status_updated',
+          text: `Order ${orderId} status updated to: ${newStatus}`,
+          date: new Date().toLocaleDateString(),
+          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          read: false,
+          orderId
+        };
+        const finalNotifs = [newNotif, ...updatedNotifs];
+
+        syncCloudData(updatedOrders, finalNotifs);
+        return finalNotifs;
+      });
+
+      return updatedOrders;
+    });
   };
 
   // 7. Customer Reviews / Feedback State
@@ -614,6 +711,7 @@ Thank you.`;
         updateOrderStatus,
         notifications,
         clearNotifications,
+        markNotificationAsRead,
         reviews,
         addReview,
         generateWhatsAppURL,

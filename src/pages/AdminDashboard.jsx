@@ -28,11 +28,13 @@ export default function AdminDashboard() {
     updateOrderStatus,
     notifications = [],
     clearNotifications,
+    markNotificationAsRead,
     customer,
     logoutCustomer
   } = useShop();
 
   const pendingOrdersCount = orders.filter((o) => o.status === 'Order Placed').length;
+  const unreadNotificationsCount = notifications.filter((n) => !n.read).length;
 
   // Authentication check
   useEffect(() => {
@@ -195,9 +197,9 @@ export default function AdminDashboard() {
                   }`}
                 >
                   <Bell className="h-3.5 w-3.5" /> Notification Feed
-                  {notifications.length > 0 && (
+                  {unreadNotificationsCount > 0 && (
                     <span className="bg-secondary-foreground/10 text-muted-foreground text-[9px] font-bold px-1.5 py-0.5 rounded-full ml-0.5">
-                      {notifications.length}
+                      {unreadNotificationsCount}
                     </span>
                   )}
                 </Link>
@@ -222,9 +224,9 @@ export default function AdminDashboard() {
                   aria-label="Toggle notifications"
                 >
                   <Bell className="h-4 w-4 text-foreground" />
-                  {notifications.length > 0 && (
-                    <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-rose-500 text-[8px] font-bold text-white shadow">
-                      {notifications.length}
+                  {unreadNotificationsCount > 0 && (
+                    <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-rose-500 text-[8px] font-bold text-white shadow animate-bounce">
+                      {unreadNotificationsCount}
                     </span>
                   )}
                 </button>
@@ -329,9 +331,9 @@ export default function AdminDashboard() {
             }`}
           >
             <Bell className="h-4 w-4" /> Feed
-            {notifications.length > 0 && (
-              <span className="absolute -top-1.5 -right-2 bg-secondary-foreground/15 text-muted-foreground text-[8px] font-bold px-1.5 py-0.5 rounded-full">
-                {notifications.length}
+            {unreadNotificationsCount > 0 && (
+              <span className="absolute -top-1.5 -right-2 bg-rose-500 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full">
+                {unreadNotificationsCount}
               </span>
             )}
           </Link>
@@ -1139,14 +1141,57 @@ Please keep your phone available. Thank you for shopping with Boran Trends!`;
               const order = orderId ? orders.find(o => o.id === orderId) : null;
 
               return (
-                <div key={notif.id} className="p-4 flex gap-4 items-start hover:bg-secondary/10 transition-colors">
+                <div 
+                  key={notif.id} 
+                  className={`p-4 flex gap-4 items-start hover:bg-secondary/10 transition-colors relative ${
+                    !notif.read ? 'bg-amber-500/[0.02] border-l-2 border-l-amber-500' : ''
+                  }`}
+                >
                   <div className={`h-8 w-8 rounded-full border flex items-center justify-center flex-shrink-0 ${iconClass}`}>
                     <NotifIcon className="h-4 w-4" />
                   </div>
                   <div className="flex-grow flex items-center justify-between gap-4 flex-wrap sm:flex-nowrap">
                     <div className="space-y-1.5 flex-grow">
-                      <p className="text-xs font-medium text-foreground">{notif.text}</p>
-                      <div className="flex gap-2 text-[10px] text-muted-foreground font-light">
+                      <div className="flex items-center gap-2">
+                        <p className="text-xs font-semibold text-foreground">{notif.text}</p>
+                        {!notif.read && (
+                          <span className="bg-rose-500 text-white text-[8px] font-extrabold px-1.5 py-0.5 rounded-full uppercase tracking-wider scale-90">
+                            Unread
+                          </span>
+                        )}
+                      </div>
+                      
+                      {/* Structured Details */}
+                      {notif.customerName && (
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 bg-secondary/20 p-3 rounded-lg text-[10px] text-muted-foreground font-light mt-1.5 border border-border/20">
+                          <div>
+                            <span className="font-bold text-foreground block">Customer</span>
+                            {notif.customerName}
+                          </div>
+                          <div>
+                            <span className="font-bold text-foreground block">Phone</span>
+                            {notif.customerPhone || 'N/A'}
+                          </div>
+                          <div>
+                            <span className="font-bold text-foreground block">Email</span>
+                            {notif.customerEmail || 'N/A'}
+                          </div>
+                          <div>
+                            <span className="font-bold text-foreground block">Total</span>
+                            <span className="text-foreground font-semibold">₹{notif.orderTotal?.toLocaleString('en-IN')}</span>
+                          </div>
+                          <div>
+                            <span className="font-bold text-foreground block">Payment Method</span>
+                            {notif.paymentMethod || 'WhatsApp pay'}
+                          </div>
+                          <div>
+                            <span className="font-bold text-foreground block">Date & Time</span>
+                            {notif.orderDate || `${notif.date} ${notif.time}`}
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="flex gap-2 text-[10px] text-muted-foreground font-light mt-1">
                         <span>{notif.date}</span>
                         <span>•</span>
                         <span>{notif.time}</span>
@@ -1208,21 +1253,32 @@ Please keep your phone available. Thank you for shopping with Boran Trends!`;
                         </div>
                       )}
                     </div>
-                    {orderId && (
-                      <Link
-                        to="/admin/orders"
-                        className="text-[10px] font-bold text-primary border border-primary/30 px-2.5 py-1 rounded-md hover:bg-primary hover:text-primary-foreground transition-all shrink-0 font-sans"
-                      >
-                        Manage Order
-                      </Link>
-                    )}
+                    
+                    <div className="flex flex-col gap-2 items-end shrink-0">
+                      {orderId && (
+                        <Link
+                          to="/admin/orders"
+                          className="text-[10px] font-bold text-primary border border-primary/30 px-2.5 py-1 rounded-md hover:bg-primary hover:text-primary-foreground transition-all font-sans"
+                        >
+                          Manage Order
+                        </Link>
+                      )}
+                      
+                      {!notif.read && (
+                        <button
+                          onClick={() => markNotificationAsRead(notif.id)}
+                          className="text-[9px] font-extrabold text-green-600 hover:text-green-700 border border-green-600/30 hover:border-green-600/60 px-2 py-0.5 rounded transition-all focus:outline-none cursor-pointer"
+                        >
+                          Mark Read
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               );
             })}
           </div>
         )}
-      </div>
     );
   }
 }
