@@ -118,7 +118,7 @@ export default function ProductDetails() {
     setShowBuyModal(true);
   };
 
-  const handleConfirmWhatsAppOrder = (e) => {
+  const handleConfirmWhatsAppOrder = async (e) => {
     e.preventDefault();
     if (!checkoutName.trim() || !checkoutPhone.trim() || !checkoutEmail.trim() || !checkoutLocation.trim()) {
       alert('Please fill in all customer details (Name, Phone, Email, and Address).');
@@ -140,7 +140,7 @@ export default function ProductDetails() {
       image: image
     };
 
-    const orderId = placeMockOrder(
+    const orderId = await placeMockOrder(
       checkoutName.trim(),
       checkoutPhone.trim(),
       checkoutEmail.trim(),

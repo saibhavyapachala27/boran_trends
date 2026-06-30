@@ -32,12 +32,12 @@ export default function Cart() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCheckout = (e) => {
+  const handleCheckout = async (e) => {
     e.preventDefault();
     if (cart.length === 0) return;
     
     // 1. Save to mock orders database and clear cart
-    const orderId = placeMockOrder(
+    const orderId = await placeMockOrder(
       formData.name,
       formData.phone,
       formData.email,

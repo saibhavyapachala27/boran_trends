@@ -432,7 +432,7 @@ export const ShopProvider = ({ children }) => {
     }
   }, [customer.loggedIn, customer.role, fetchCloudData, mergeOrders, mergeNotifications]);
 
-  const placeMockOrder = (customerName, phone, email, address, locationText = '', itemsToOrder = null) => {
+  const placeMockOrder = async (customerName, phone, email, address, locationText = '', itemsToOrder = null) => {
     const orderId = `BT-${Math.floor(1000 + Math.random() * 9000)}`;
     const items = itemsToOrder || [...cart];
     const orderTotal = itemsToOrder
@@ -462,33 +462,33 @@ export const ShopProvider = ({ children }) => {
       paymentMethod: 'WhatsApp Checkout / Cash on Delivery'
     };
 
-    setOrders((prevOrders) => {
-      const updatedOrders = [freshOrder, ...prevOrders];
-      
-      const newNotif = {
-        id: `${Date.now()}-${Math.random()}`,
-        type: 'order_placed',
-        text: `New order ${orderId} placed by ${customerName}`,
-        date: new Date().toLocaleDateString(),
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        read: false,
-        orderId,
-        customerName,
-        customerEmail: email || 'Not Provided',
-        customerPhone: phone,
-        orderTotal,
-        paymentMethod: freshOrder.paymentMethod,
-        orderDate: freshOrder.date
-      };
+    const newNotif = {
+      id: `${Date.now()}-${Math.random()}`,
+      type: 'order_placed',
+      text: `New order ${orderId} placed by ${customerName}`,
+      date: new Date().toLocaleDateString(),
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      read: false,
+      orderId,
+      customerName,
+      customerEmail: email || 'Not Provided',
+      customerPhone: phone,
+      orderTotal,
+      paymentMethod: freshOrder.paymentMethod,
+      orderDate: freshOrder.date
+    };
 
-      setNotifications((prevNotifs) => {
-        const updatedNotifs = [newNotif, ...prevNotifs];
-        syncCloudData(updatedOrders, updatedNotifs);
-        return updatedNotifs;
-      });
+    const updatedOrders = [freshOrder, ...orders];
+    const updatedNotifs = [newNotif, ...notifications];
 
-      return updatedOrders;
-    });
+    setOrders(updatedOrders);
+    setNotifications(updatedNotifs);
+
+    try {
+      await syncCloudData(updatedOrders, updatedNotifs);
+    } catch (err) {
+      console.error('Failed to sync new order to cloud KV:', err);
+    }
 
     if (!itemsToOrder) {
       clearCart();
