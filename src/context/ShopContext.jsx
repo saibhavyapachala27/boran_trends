@@ -291,7 +291,7 @@ export const ShopProvider = ({ children }) => {
     setNotifications([]);
   };
 
-  // 6. Orders Tracking Database (Mock)
+  // 6. Orders Tracking Database (Mock & Cloud Synced)
   const [orders, setOrders] = useState(() => {
     try {
       const stored = localStorage.getItem('boran_orders');
@@ -301,16 +301,63 @@ export const ShopProvider = ({ children }) => {
     }
   });
 
+  const fetchOrdersFromCloud = useCallback(async () => {
+    try {
+      const response = await fetch('https://extendsclass.com/api/json-storage/bin/fabffca');
+      if (response.ok) {
+        const cloudOrders = await response.json();
+        if (Array.isArray(cloudOrders)) {
+          return cloudOrders;
+        }
+      }
+    } catch (e) {
+      console.error('Failed to fetch orders from cloud KV:', e);
+    }
+    return null;
+  }, []);
+
+  const syncOrdersToCloud = async (updatedOrders) => {
+    try {
+      const url = 'https://extendsclass.com/api/json-storage/bin/fabffca';
+      await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedOrders)
+      });
+    } catch (e) {
+      console.error('Failed to sync orders to cloud KV:', e);
+    }
+  };
+
   useEffect(() => {
     localStorage.setItem('boran_orders', JSON.stringify(orders));
   }, [orders]);
 
-  const placeMockOrder = (customerName, phone, email, address, locationText = '') => {
+  useEffect(() => {
+    const loadCloudOrders = async () => {
+      const cloudOrders = await fetchOrdersFromCloud();
+      if (cloudOrders) {
+        setOrders(cloudOrders);
+      }
+    };
+    loadCloudOrders();
+    const interval = setInterval(loadCloudOrders, 15000);
+    return () => clearInterval(interval);
+  }, [fetchOrdersFromCloud]);
+
+  const placeMockOrder = (customerName, phone, email, address, locationText = '', itemsToOrder = null) => {
     const orderId = `BT-${Math.floor(1000 + Math.random() * 9000)}`;
+    const items = itemsToOrder || [...cart];
+    const orderTotal = itemsToOrder
+      ? itemsToOrder.reduce((acc, item) => acc + item.price * item.quantity, 0)
+      : total;
+
     const freshOrder = {
       id: orderId,
-      items: [...cart],
-      total,
+      items: items,
+      total: orderTotal,
       branch: selectedBranch,
       customerName,
       phone,
@@ -328,9 +375,19 @@ export const ShopProvider = ({ children }) => {
         { label: 'Delivered', time: 'Pending', date: '', completed: false },
       ]
     };
-    setOrders((prev) => [freshOrder, ...prev]);
-    addNotification(`New order ${orderId} placed by ${customerName} (${phone}) - total ₹${total.toLocaleString('en-IN')}`, 'order_placed');
-    clearCart();
+
+    setOrders((prev) => {
+      const updated = [freshOrder, ...prev];
+      syncOrdersToCloud(updated);
+      return updated;
+    });
+
+    addNotification(`New order ${orderId} placed by ${customerName} (${phone}) - total ₹${orderTotal.toLocaleString('en-IN')}`, 'order_placed');
+    
+    if (!itemsToOrder) {
+      clearCart();
+    }
+    
     return orderId;
   };
 
@@ -359,6 +416,7 @@ export const ShopProvider = ({ children }) => {
           timeline: updatedTimeline,
         };
       });
+      syncOrdersToCloud(updated);
       return updated;
     });
 
@@ -456,7 +514,7 @@ Thank you.`;
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   };
 
-  const generateProductWhatsAppURL = (product, size, color, quantity = 1) => {
+  const generateProductWhatsAppURL = (product, size, color, quantity = 1, orderId = 'BT-MOCK') => {
     const saved = getLastCheckoutDetails();
     const customerName = saved.name || 'Not Provided';
     const customerPhone = customer.phone || saved.phone || 'Not Provided';
@@ -473,8 +531,9 @@ Thank you.`;
 
     const message = `Hello Boran Trends,
 
-I'm interested in ordering:
+I want to place an order. (Order ID: ${orderId})
 
+*Product:*
 *${product.name}*${colorSection}
 Size: ${size}
 Quantity: ${quantity}

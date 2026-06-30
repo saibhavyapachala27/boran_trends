@@ -42,7 +42,9 @@ export default function ProductDetails() {
     generateProductWhatsAppURL,
     wishlist,
     toggleWishlist,
-    getLastCheckoutDetails
+    getLastCheckoutDetails,
+    placeMockOrder,
+    customer
   } = useShop();
 
   const product = products.find((p) => p.id === id);
@@ -122,6 +124,9 @@ export default function ProductDetails() {
 
     // 1. Save inputs to storage first so generateProductWhatsAppURL reads the updated details
     const saved = getLastCheckoutDetails();
+    const customerPhone = customer.phone || saved.phone || 'Not Provided';
+    const customerEmail = customer.email || saved.email || '';
+    
     localStorage.setItem(
       'boran_last_checkout',
       JSON.stringify({
@@ -131,15 +136,42 @@ export default function ProductDetails() {
       })
     );
 
-    // 2. Generate and open URL
-    const url = generateProductWhatsAppURL(product, selectedSize, selectedColor, quantity);
+    // 2. Construct direct checkout item and place order in database
+    const activeVariant = product.variants ? product.variants.find((v) => v.color === selectedColor) : null;
+    const image = activeVariant ? activeVariant.image : ((product.images && product.images[0]) || '');
+    const productName = activeVariant ? `${product.name} - ${selectedColor}` : product.name;
+    
+    const directItem = {
+      product_id: product.id,
+      product_name: productName,
+      size: selectedSize,
+      color: selectedColor,
+      quantity: quantity,
+      price: product.price,
+      image: image
+    };
+
+    const orderId = placeMockOrder(
+      checkoutName.trim(),
+      customerPhone,
+      customerEmail,
+      checkoutLocation.trim(),
+      '',
+      [directItem]
+    );
+
+    // 3. Generate and open URL
+    const url = generateProductWhatsAppURL(product, selectedSize, selectedColor, quantity, orderId);
     const newWindow = window.open(url, '_blank');
     if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
       window.location.href = url;
     }
 
-    // 3. Close modal
+    // 4. Close modal
     setShowBuyModal(false);
+    
+    // Alert user
+    alert(`Thank you! Order ${orderId} has been generated. Please send the message on WhatsApp to confirm.`);
   };
 
   const getHexColor = (colorName) => {
