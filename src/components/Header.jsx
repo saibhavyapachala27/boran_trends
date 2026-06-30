@@ -151,7 +151,13 @@ export default function Header() {
           {/* User Account / Profile dropdown */}
           <div className="relative">
             <button
-              onClick={() => setIsProfileOpen(!isProfileOpen)}
+              onClick={() => {
+                if (customer.loggedIn) {
+                  setIsProfileOpen(!isProfileOpen);
+                } else {
+                  navigate('/login', { state: { from: '/profile' } });
+                }
+              }}
               className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors focus:outline-none p-1"
             >
               <User className="h-5 w-5 text-foreground" />

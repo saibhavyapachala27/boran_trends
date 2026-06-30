@@ -43,10 +43,11 @@ export default function Login() {
       if (customer.role === 'Admin') {
         navigate('/admin/products');
       } else {
-        navigate('/');
+        const origin = location.state?.from?.pathname || location.state?.from || '/';
+        navigate(origin);
       }
     }
-  }, [customer, navigate]);
+  }, [customer, navigate, location]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
