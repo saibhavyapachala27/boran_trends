@@ -276,7 +276,7 @@ export const ShopProvider = ({ children }) => {
     localStorage.setItem('boran_notifications', JSON.stringify(notifications));
   }, [notifications]);
 
-  const addNotification = (text, type = 'info', metadata = {}) => {
+  const addNotification = async (text, type = 'info', metadata = {}) => {
     const newNotif = {
       id: `${Date.now()}-${Math.random()}`,
       type,
@@ -286,25 +286,26 @@ export const ShopProvider = ({ children }) => {
       read: false,
       ...metadata
     };
-    setNotifications((prev) => {
-      const updated = [newNotif, ...prev];
-      syncCloudData(orders, updated);
-      return updated;
-    });
+    await safelyUpdateCloud((currentOrders, currentNotifs) => ({
+      updatedOrders: currentOrders,
+      updatedNotifications: [newNotif, ...currentNotifs]
+    }));
   };
 
-  const clearNotifications = () => {
-    setNotifications((prev) => {
-      syncCloudData(orders, []);
-      return [];
-    });
+  const clearNotifications = async () => {
+    await safelyUpdateCloud((currentOrders, currentNotifs) => ({
+      updatedOrders: currentOrders,
+      updatedNotifications: []
+    }));
   };
 
-  const markNotificationAsRead = (notifId) => {
-    setNotifications((prev) => {
-      const updated = prev.map((n) => (n.id === notifId ? { ...n, read: true } : n));
-      syncCloudData(orders, updated);
-      return updated;
+  const markNotificationAsRead = async (notifId) => {
+    await safelyUpdateCloud((currentOrders, currentNotifs) => {
+      const updatedNotifs = currentNotifs.map((n) => (n.id === notifId ? { ...n, read: true } : n));
+      return {
+        updatedOrders: currentOrders,
+        updatedNotifications: updatedNotifs
+      };
     });
   };
 
@@ -352,6 +353,34 @@ export const ShopProvider = ({ children }) => {
       });
     } catch (e) {
       console.error('Failed to sync data to cloud KV:', e);
+    }
+  };
+
+  const safelyUpdateCloud = async (updater) => {
+    let cloudOrders = [];
+    let cloudNotifs = [];
+    try {
+      const cloudData = await fetchCloudData();
+      if (cloudData) {
+        cloudOrders = cloudData.orders || [];
+        cloudNotifs = cloudData.notifications || [];
+      }
+    } catch (e) {
+      console.error('Failed to fetch latest cloud data before update:', e);
+    }
+
+    const currentOrders = cloudOrders.length ? cloudOrders : orders;
+    const currentNotifs = cloudNotifs.length ? cloudNotifs : notifications;
+
+    const { updatedOrders, updatedNotifications } = updater(currentOrders, currentNotifs);
+
+    setOrders(updatedOrders);
+    setNotifications(updatedNotifications);
+
+    try {
+      await syncCloudData(updatedOrders, updatedNotifications);
+    } catch (err) {
+      console.error('Failed to sync updated data to cloud KV:', err);
     }
   };
 
@@ -478,17 +507,14 @@ export const ShopProvider = ({ children }) => {
       orderDate: freshOrder.date
     };
 
-    const updatedOrders = [freshOrder, ...orders];
-    const updatedNotifs = [newNotif, ...notifications];
-
-    setOrders(updatedOrders);
-    setNotifications(updatedNotifs);
-
-    try {
-      await syncCloudData(updatedOrders, updatedNotifs);
-    } catch (err) {
-      console.error('Failed to sync new order to cloud KV:', err);
-    }
+    await safelyUpdateCloud((currentOrders, currentNotifs) => {
+      const mergedOrders = mergeOrders([freshOrder], currentOrders);
+      const mergedNotifs = mergeNotifications([newNotif], currentNotifs);
+      return {
+        updatedOrders: mergedOrders,
+        updatedNotifications: mergedNotifs
+      };
+    });
 
     if (!itemsToOrder) {
       clearCart();
@@ -497,9 +523,9 @@ export const ShopProvider = ({ children }) => {
     return orderId;
   };
 
-  const updateOrderStatus = (orderId, newStatus, timelineLabelToComplete = '') => {
-    setOrders((prevOrders) => {
-      const updatedOrders = prevOrders.map((order) => {
+  const updateOrderStatus = async (orderId, newStatus, timelineLabelToComplete = '') => {
+    await safelyUpdateCloud((currentOrders, currentNotifs) => {
+      const updatedOrders = currentOrders.map((order) => {
         if (order.id !== orderId) return order;
 
         let updatedTimeline = order.timeline || [];
@@ -523,35 +549,32 @@ export const ShopProvider = ({ children }) => {
         };
       });
 
-      setNotifications((prevNotifs) => {
-        const updatedNotifs = prevNotifs.map((n) => {
-          if (n.orderId === orderId) {
-            return {
-              ...n,
-              text: `Order ${orderId} status updated to: ${newStatus}`,
-              type: newStatus === 'Rejected' || newStatus === 'Cancelled' ? 'order_cancelled' : 'status_updated',
-              orderStatus: newStatus
-            };
-          }
-          return n;
-        });
-
-        const newNotif = {
-          id: `${Date.now()}-${Math.random()}`,
-          type: newStatus === 'Rejected' || newStatus === 'Cancelled' ? 'order_cancelled' : 'status_updated',
-          text: `Order ${orderId} status updated to: ${newStatus}`,
-          date: new Date().toLocaleDateString(),
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-          read: false,
-          orderId
-        };
-        const finalNotifs = [newNotif, ...updatedNotifs];
-
-        syncCloudData(updatedOrders, finalNotifs);
-        return finalNotifs;
+      const updatedNotifs = currentNotifs.map((n) => {
+        if (n.orderId === orderId) {
+          return {
+            ...n,
+            text: `Order ${orderId} status updated to: ${newStatus}`,
+            type: newStatus === 'Rejected' || newStatus === 'Cancelled' ? 'order_cancelled' : 'status_updated',
+            orderStatus: newStatus
+          };
+        }
+        return n;
       });
 
-      return updatedOrders;
+      const newNotif = {
+        id: `${Date.now()}-${Math.random()}`,
+        type: newStatus === 'Rejected' || newStatus === 'Cancelled' ? 'order_cancelled' : 'status_updated',
+        text: `Order ${orderId} status updated to: ${newStatus}`,
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        read: false,
+        orderId
+      };
+
+      return {
+        updatedOrders,
+        updatedNotifications: [newNotif, ...updatedNotifs]
+      };
     });
   };
 
